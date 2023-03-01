@@ -16,7 +16,7 @@
         android:gravity="right|bottom"
         android:longClickable="false"
         android:padding="20dp"
-        android:textSize="30dp" />
+        android:textSize="40dp" />
 
     <TextView
         android:id="@+id/result"
@@ -26,6 +26,17 @@
         android:padding="20dp"
         android:text="Result"
         android:textColor="@color/teal_200"
+        android:textSize="35dp" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+        android:onClick="onClickDelete"
+        android:textStyle="bold"
+        android:text="D"
         android:textSize="30dp" />
 
     <GridLayout
@@ -45,12 +56,11 @@
             android:textSize="30dp" />
 
         <Button
-            android:id="@+id/delete"
+            android:id="@+id/brackets"
 
             android:layout_margin="1dp"
-
-            android:onClick="onClickDelete"
-            android:text="D"
+            android:onClick="onClickBrackets"
+            android:text="()"
             android:textSize="30dp" />
 
         <Button
@@ -174,19 +184,12 @@
 
         <Button
             android:id="@+id/zero"
-
+            android:layout_gravity="fill"
             android:layout_margin="1dp"
             android:onClick="onClickZero"
             android:text="0"
-            android:textSize="30dp" />
-
-        <Button
-            android:id="@+id/brackets"
-
-            android:layout_margin="1dp"
-            android:onClick="onClickBrackets"
-            android:text="()"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:layout_columnSpan="2"/>
 
 
         <Button

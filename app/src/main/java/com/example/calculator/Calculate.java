@@ -1,5 +1,6 @@
 package com.example.calculator;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Calculate {
-    public static String getResult(String s) {
+    public static String getResult(String s) throws NumberFormatException {
 
 
         if (s.contains("(")) {
@@ -26,7 +27,7 @@ public class Calculate {
     }
 
 
-    public static String calculation(String s) {
+    public static String calculation(String s) throws NumberFormatException {
         boolean boo = false;
         if (s.toCharArray()[0] == '-') {
             s = s.substring(1, s.length());
@@ -69,16 +70,12 @@ public class Calculate {
         }
 
         double d = (double) numbers.get(0);
-
-        if (d % 1 == 0) {
-            return Long.toString((long) d);
-        } else {
-            return Double.toString(d);
-        }
+        DecimalFormat format = new DecimalFormat("#.##########");
+        return format.format(d);
     }
 
 
-    public static List<Number> getNumbers(String[] strings) {
+    public static List<Number> getNumbers(String[] strings) throws NumberFormatException {
         List<Number> list = new ArrayList<>();
         for (String s : strings) {
             list.add(Double.parseDouble(s));

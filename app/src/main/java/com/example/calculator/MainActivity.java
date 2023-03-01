@@ -91,9 +91,28 @@ public class MainActivity extends AppCompatActivity {
         int end = editText.getSelectionEnd();
 
         StringBuilder sb = new StringBuilder(editText.getText());
-        if (start == 0 || sb.length() == 1 && sb.charAt(start - 1) == '0') {
+        if (sb.length() == 1 && sb.charAt(start - 1) == '0') {
             show();
             return;
+        } else if (start==0) {
+            if (isPointInNumber(sb, start)){
+                show();
+                return;
+            }else{
+                if (start == end) {
+                    sb.insert(start, '0');
+                    sb.insert(++start, '.');
+
+                } else {
+                    sb.delete(start, end);
+                    sb.insert(start, '0');
+                    sb.insert(++start, '.');
+
+                }
+                editText.setText(sb);
+                editText.setSelection(++start);
+                isPointSet = true;
+            }
         } else if ((sb.length() > 1) && (sb.charAt(start - 1) == '0') && (isZnak(sb.charAt(start - 2)))) {
             if (start == end) {
                 sb.insert(start, '.');
@@ -208,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit);
         editText.setText("");
         TextView textView = (TextView) findViewById(R.id.result);
-        textView.setText("");
+        textView.setText("Result");
         isPointSet = false;
     }
 
@@ -364,6 +383,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClickEnter(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
+
+        if(sb.length()==0){
+            return;
+        }
+
         if (sb.length() ==1 && sb.charAt(0) == '-'){
             show();
             return;
@@ -380,13 +404,19 @@ public class MainActivity extends AppCompatActivity {
                 countBracket--;
             }
         }
-
-        String res = Calculate.getResult(sb.toString());
         TextView result = (TextView) findViewById(R.id.result);
-         result.setText(res);
-         editText.setText(sb);
-         editText.setSelection(sb.length());
+        try {
+            String res = Calculate.getResult(sb.toString());
+            result.setText(res);
+            editText.setText(sb);
+            editText.setSelection(sb.length());
+        }catch(NumberFormatException e){
+            show();
+            editText.setText("");
 
+            result.setText("Result");
+            isPointSet = false;
+        }
 
     }
 
