@@ -1,6 +1,7 @@
 package com.example.calculator;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,6 +70,8 @@ public class Calculate {
 
         }
 
+        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+        symbols.setDecimalSeparator('.');
         double d = (double) numbers.get(0);
         DecimalFormat format = new DecimalFormat("#.##########");
         return format.format(d);
