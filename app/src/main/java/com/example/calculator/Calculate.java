@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class Calculate {
@@ -73,7 +74,7 @@ public class Calculate {
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
         symbols.setDecimalSeparator('.');
         double d = (double) numbers.get(0);
-        DecimalFormat format = new DecimalFormat("#.##########");
+        DecimalFormat format = new DecimalFormat("#.##########", symbols);
         return format.format(d);
     }
 
