@@ -40,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+
             android:onClick="onClickUp"
             android:textStyle="bold"
             android:text="Up"
@@ -50,8 +51,9 @@
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_gravity="right"
-        style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+
         android:onClick="onClickDelete"
         android:textStyle="bold"
         android:text="Del"
@@ -67,7 +69,7 @@
         <Button
             android:id="@+id/Reset"
             android:layout_margin="1dp"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickReset"
             android:text="C"
             android:textColor="@color/red"
@@ -75,7 +77,7 @@
 
         <Button
             android:id="@+id/brackets"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickBrackets"
             android:text="()"
@@ -83,7 +85,7 @@
 
         <Button
             android:id="@+id/divide"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickDivide"
             android:text="/"
@@ -93,7 +95,7 @@
             android:id="@+id/multiply"
 
             android:layout_margin="1dp"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickMultiply"
             android:text="*"
             android:textSize="30dp" />
@@ -101,7 +103,7 @@
 
         <Button
             android:id="@+id/seven"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickSeven"
             android:text="7"
@@ -111,7 +113,7 @@
             android:id="@+id/eight"
 
             android:layout_margin="1dp"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickEight"
             android:text="8"
             android:textSize="30dp" />
@@ -120,14 +122,14 @@
             android:id="@+id/nine"
 
             android:layout_margin="1dp"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickNine"
             android:text="9"
             android:textSize="30dp" />
 
         <Button
             android:id="@+id/minus"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickMinus"
             android:text="-"
@@ -135,7 +137,7 @@
 
         <Button
             android:id="@+id/four"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickFour"
             android:text="4"
@@ -143,7 +145,7 @@
 
         <Button
             android:id="@+id/five"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickFive"
             android:text="5"
@@ -151,7 +153,7 @@
 
         <Button
             android:id="@+id/six"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickSix"
             android:text="6"
@@ -160,7 +162,7 @@
 
         <Button
             android:id="@+id/plus"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickPlus"
             android:text="+"
@@ -169,7 +171,7 @@
 
         <Button
             android:id="@+id/one"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickOne"
             android:text="1"
@@ -177,7 +179,7 @@
 
         <Button
             android:id="@+id/two"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickTwo"
             android:text="2"
@@ -185,7 +187,7 @@
 
         <Button
             android:id="@+id/three"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickThree"
             android:text="3"
@@ -194,6 +196,7 @@
         <Button
             android:id="@+id/enter"
             android:layout_rowSpan="2"
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_gravity="fill"
             android:layout_margin="1dp"
             android:onClick="onClickEnter"
@@ -203,6 +206,7 @@
         <Button
             android:id="@+id/zero"
             android:layout_gravity="fill"
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickZero"
             android:text="0"
@@ -212,7 +216,7 @@
 
         <Button
             android:id="@+id/point"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickPoint"
             android:text="."
