@@ -2,54 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="right"
-     >
+    android:layout_gravity="fill_vertical"
+    android:gravity="fill_vertical"
+    android:orientation="vertical">
 
 
-
-
-        <EditText
-            android:id="@+id/edit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="fill"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:gravity="right|bottom"
-            android:longClickable="false"
-            android:padding="5dp"
-            android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/result"
+    <EditText
+        android:id="@+id/edit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
+        android:layout_height="match_parent"
+        android:layout_gravity="fill"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:gravity="right|bottom"
+        android:longClickable="false"
         android:padding="5dp"
-        android:text="Result"
-        android:textColor="@color/teal_200"
-        android:textSize="15dp" />
+        android:textSize="25dp" />
 
-    <Button
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="540dp"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:padding="5dp"
+            android:text="Result"
+            android:textColor="@color/teal_200"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/up"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
-            android:onClick="onClickDelete"
+            android:onClick="onClickUp"
             android:textStyle="bold"
-            android:text="D"
-            android:textSize="15dp" />
+            android:text="Up"
+            android:textSize="20dp" />
 
+        <Button
+            android:id="@+id/delete"
+            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|bottom"
+            android:onClick="onClickDelete"
+            android:text="Del"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_gravity="right"
+        android:columnCount="4"
         android:gravity="center"
-        android:columnCount="4">
+        >
 
         <Button
             android:id="@+id/Reset"
@@ -58,7 +74,7 @@
             android:onClick="onClickReset"
             android:text="C"
             android:textColor="@color/red"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/brackets"
@@ -66,7 +82,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickBrackets"
             android:text="()"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/divide"
@@ -74,7 +90,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickDivide"
             android:text="/"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/multiply"
@@ -83,7 +99,7 @@
 
             android:onClick="onClickMultiply"
             android:text="*"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
 
         <Button
@@ -92,7 +108,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickSeven"
             android:text="7"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/eight"
@@ -101,7 +117,7 @@
 
             android:onClick="onClickEight"
             android:text="8"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/nine"
@@ -110,7 +126,7 @@
 
             android:onClick="onClickNine"
             android:text="9"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/minus"
@@ -118,7 +134,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickMinus"
             android:text="-"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/four"
@@ -126,7 +142,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickFour"
             android:text="4"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/five"
@@ -134,7 +150,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickFive"
             android:text="5"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/six"
@@ -142,7 +158,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickSix"
             android:text="6"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
 
         <Button
@@ -151,7 +167,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickPlus"
             android:text="+"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
 
         <Button
@@ -160,7 +176,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickOne"
             android:text="1"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/two"
@@ -168,7 +184,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickTwo"
             android:text="2"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/three"
@@ -176,7 +192,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickThree"
             android:text="3"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/enter"
@@ -185,18 +201,16 @@
             android:layout_margin="1dp"
             android:onClick="onClickEnter"
             android:text="="
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/zero"
+            android:layout_columnSpan="2"
             android:layout_gravity="fill"
             android:layout_margin="1dp"
             android:onClick="onClickZero"
             android:text="0"
-            android:textSize="10dp"
-            android:layout_columnSpan="2" />
-
-
+            android:textSize="15dp" />
 
 
         <Button
@@ -205,7 +219,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickPoint"
             android:text="."
-            android:textSize="10dp" />
+            android:textSize="15dp" />
     </GridLayout>
 
 </LinearLayout>

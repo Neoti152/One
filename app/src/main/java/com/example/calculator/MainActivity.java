@@ -175,6 +175,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onClickUp(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+
+        TextView textView = (TextView) findViewById(R.id.result);
+        String s = textView.getText().toString();
+        if (!s.equals("Result")){
+            editText.setText(s);
+            editText.setSelection(s.length());
+        }
+    }
     public void onClickDelete(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
