@@ -43,7 +43,7 @@
             style="@style/Widget.Material3.Button.ElevatedButton"
 
             android:onClick="onClickUp"
-            android:textStyle="bold"
+
             android:text="Up"
             android:textSize="30dp" />
 
@@ -55,7 +55,7 @@
         android:layout_gravity="right"
 
         android:onClick="onClickDelete"
-        android:textStyle="bold"
+
         android:text="Del"
         android:textSize="30dp" />
     </LinearLayout>
