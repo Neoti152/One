@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
             int end = savedInstanceState.getInt("End");
             if (start == end) {
                 editText.setSelection(start);
-            }else{
-                editText.setSelection(start,end);
+            } else {
+                editText.setSelection(start, end);
             }
         }
 
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putInt("Start", start);
         savedInstanceState.putInt("End", end);
     }
+
     public void onClickOne(View view) {
         addDigit('1');
     }
@@ -94,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
         if (sb.length() == 1 && sb.charAt(start - 1) == '0') {
             show();
             return;
-        } else if (start==0) {
-            if (isPointInNumber(sb, start)){
+        } else if (start == 0) {
+            if (isPointInNumber(sb, start)) {
                 show();
                 return;
-            }else{
+            } else {
                 if (start == end) {
                     sb.insert(start, '0');
                     sb.insert(++start, '.');
@@ -175,16 +176,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClickUp(View view){
+    public void onClickUp(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
 
         TextView textView = (TextView) findViewById(R.id.result);
         String s = textView.getText().toString();
-        if (!s.equals("Result")){
+        if (!s.equals("Result")) {
             editText.setText(s);
             editText.setSelection(s.length());
         }
     }
+
     public void onClickDelete(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
@@ -248,12 +250,22 @@ public class MainActivity extends AppCompatActivity {
         int end = editText.getSelectionEnd();
 
         StringBuilder sb = new StringBuilder(editText.getText());
-        if (sb.length() > 1 && start !=0 && sb.charAt(start - 1) == ')') {
+        int[] counts = numberLength(sb, start);
+
+        if(counts[0]>=15 ||counts[1]>=10){
+            Toast toast = Toast.makeText(this, "Небольше 15 цифр!", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+
+
+        if (sb.length() > 1 && start != 0 && sb.charAt(start - 1) == ')') {
             show();
             return;
         }
 
-        if(start ==0){
+        if (start == 0) {
             if (start == end) {
                 sb.insert(start, c);
             } else {
@@ -310,12 +322,12 @@ public class MainActivity extends AppCompatActivity {
         int end = editText.getSelectionEnd();
 
         if ((start == 0) && (c == '-')) {
-            sb.insert(start,c);
+            sb.insert(start, c);
             editText.setText(sb);
             editText.setSelection(++start);
         } else if (start == 0) {
             show();
-        } else if (sb.length()>2 && sb.charAt(start-2) == '(') {
+        } else if (sb.length() > 2 && sb.charAt(start - 2) == '(') {
             show();
             return;
         } else {
@@ -344,15 +356,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    isPointSet =false;
-}
+        isPointSet = false;
+    }
 
     public void onClickBrackets(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
         if (sb.length() == 0 || start == 0) {
-            sb.insert(0,'(');
+            sb.insert(0, '(');
             editText.setText(sb);
             editText.setSelection(1);
             countBracket++;
@@ -394,16 +406,16 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
 
-        if(sb.length()==0){
+        if (sb.length() == 0) {
             return;
         }
 
-        if (sb.length() ==1 && sb.charAt(0) == '-'){
+        if (sb.length() == 1 && sb.charAt(0) == '-') {
             show();
             return;
         }
 
-        int end = sb.length() - 1 ;
+        int end = sb.length() - 1;
         char znak = sb.charAt(end);
         if (isZnak(znak) || znak == '.') {
             sb.deleteCharAt(end);
@@ -420,7 +432,7 @@ public class MainActivity extends AppCompatActivity {
             result.setText(res);
             editText.setText(sb);
             editText.setSelection(sb.length());
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             show();
             editText.setText("");
 
@@ -456,6 +468,50 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    public int[] numberLength(StringBuilder sb, int point) {
+        char[] chars = sb.toString().toCharArray();
+        int[] counts = {0, 0};
+        int countn = 0;
+        int end = 0;
+        int countp = 0;
+        boolean b = false;
+        for (int i = point; i < chars.length; i++) {
+            if (isZnak(chars[i])) {
+                break;
+            }
+            if (chars[i] == '.') {
+                b = true;
+
+            }
+            countn++;
+            end = i;
+        }
+
+        for (int i = point - 1; i >= 0; i--) {
+            if (isZnak(chars[i])) {
+                break;
+            }
+            if (chars[i] == '.') {
+                b = true;
+
+            }
+            countn++;
+        }
+        if (b) {
+            for (int i = end; i >= 0; i--) {
+                if (chars[i] == '.') {
+                    break;
+
+                }
+                countp++;
+            }
+
+        }
+        counts[0] = countn;
+        counts[1] = countp;
+        return counts;
+    }
 
     public boolean isZnak(char c) {
         if (c == '+' || c == '-' || c == '*' || c == '/') {

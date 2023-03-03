@@ -31,6 +31,10 @@ public class Calculate {
 
     public static String calculation(String s) throws NumberFormatException {
         boolean boo = false;
+        if(s.isEmpty()){
+            throw new NumberFormatException();
+        }
+
         if (s.toCharArray()[0] == '-') {
             s = s.substring(1, s.length());
             boo = true;
