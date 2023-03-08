@@ -92,6 +92,21 @@ public class MainActivity extends AppCompatActivity {
         int end = editText.getSelectionEnd();
 
         StringBuilder sb = new StringBuilder(editText.getText());
+        int[] counts = numberLength(sb, start);
+        if(counts[0]>=15){
+            Toast toast = Toast.makeText(this, "Не больше 15 цифр!", Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+
+        if(counts[1]>=10){
+            if (start > counts[2]) {
+                Toast toast = Toast.makeText(this, "Не больше 10 цифр после точки!", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
+        }
+
         if (sb.length() == 1 && sb.charAt(start - 1) == '0') {
             show();
             return;
@@ -252,10 +267,18 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder(editText.getText());
         int[] counts = numberLength(sb, start);
 
-        if(counts[0]>=15 ||counts[1]>=10){
-            Toast toast = Toast.makeText(this, "Небольше 15 цифр!", Toast.LENGTH_SHORT);
+        if(counts[0]>=15){
+            Toast toast = Toast.makeText(this, "Не больше 15 цифр!", Toast.LENGTH_SHORT);
             toast.show();
             return;
+        }
+
+        if(counts[1]>=10){
+            if (start > counts[2]) {
+                Toast toast = Toast.makeText(this, "Не больше 10 цифр после точки!", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
         }
 
 
@@ -327,9 +350,9 @@ public class MainActivity extends AppCompatActivity {
             editText.setSelection(++start);
         } else if (start == 0) {
             show();
-        } else if (sb.length() > 2 && sb.charAt(start - 2) == '(') {
+     /*  } else if (sb.length() > 2 && sb.charAt(start - 2) == '(') {
             show();
-            return;
+            return;*/
         } else {
 
             char znak = sb.charAt(start - 1);
@@ -471,21 +494,26 @@ public class MainActivity extends AppCompatActivity {
 
     public int[] numberLength(StringBuilder sb, int point) {
         char[] chars = sb.toString().toCharArray();
-        int[] counts = {0, 0};
+        int[] counts = {0, 0, 0};
         int countn = 0;
         int end = 0;
         int countp = 0;
+        int pointPosishion=0;
         boolean b = false;
         for (int i = point; i < chars.length; i++) {
             if (isZnak(chars[i])) {
                 break;
             }
             if (chars[i] == '.') {
+                pointPosishion = i;
                 b = true;
-
+                countn--;
             }
             countn++;
             end = i;
+        }
+        if (end == 0){
+            end = sb.length()-1;
         }
 
         for (int i = point - 1; i >= 0; i--) {
@@ -493,7 +521,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             if (chars[i] == '.') {
+                pointPosishion = i;
                 b = true;
+                countn--;
 
             }
             countn++;
@@ -510,6 +540,7 @@ public class MainActivity extends AppCompatActivity {
         }
         counts[0] = countn;
         counts[1] = countp;
+        counts[2] = pointPosishion;
         return counts;
     }
 

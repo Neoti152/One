@@ -19,6 +19,16 @@
         android:padding="5dp"
         android:textSize="25dp" />
 
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|right"
+        android:padding="5dp"
+        android:text="Result"
+        android:textColor="@color/teal_200"
+        android:textSize="20dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,12 +37,12 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/result"
-            android:layout_width="540dp"
+            android:id="@+id/rad"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center|right"
+
             android:padding="5dp"
-            android:text="Result"
+            android:text=""
             android:textColor="@color/teal_200"
             android:textSize="20dp" />
 
@@ -40,28 +50,169 @@
             android:id="@+id/up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+            android:gravity="center"
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickUp"
             android:textStyle="bold"
-            android:text="Up"
-            android:textSize="20dp" />
+            android:text="\u21D1"
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/delete"
-            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
-            android:layout_width="match_parent"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right|bottom"
+            android:gravity="center"
             android:onClick="onClickDelete"
-            android:text="Del"
-            android:textSize="20dp"
+            android:text="\u232B"
+            android:textSize="15dp"
             android:textStyle="bold" />
     </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="horizontal">
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+
+            android:columnCount="3"
+            android:gravity="center"
+            >
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickRad"
+                android:text="Rad"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClick2x"
+                android:text="2\u02DF"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickSqrt"
+                android:text="\u221A"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickSin"
+                android:text="sin"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickCos"
+                android:text="cos"
+                android:textSize="15dp" />
+
+            <Button
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickTg"
+                android:text="tg"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickLogxY"
+                android:text="log\u2093y"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickLn"
+                android:text="ln"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickLg"
+                android:text="lg"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickX2"
+                android:text="x\u00B2"
+                android:textSize="15dp" />
+
+            <Button
+
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:onClick="onClickX3"
+                android:text="x\u00B3"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickXy"
+                android:text="x\u02B8"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickXfac"
+                android:text="x!"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickPi"
+                android:text="\u03C0"
+                android:textSize="15dp" />
+
+            <Button
+
+                android:layout_margin="1dp"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:onClick="onClickE"
+                android:text="e"
+                android:textSize="15dp" />
+
+    </GridLayout>
 
     <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_gravity="right"
         android:columnCount="4"
         android:gravity="center"
@@ -70,7 +221,7 @@
         <Button
             android:id="@+id/Reset"
             android:layout_margin="1dp"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickReset"
             android:text="C"
             android:textColor="@color/red"
@@ -78,7 +229,7 @@
 
         <Button
             android:id="@+id/brackets"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickBrackets"
             android:text="()"
@@ -86,7 +237,7 @@
 
         <Button
             android:id="@+id/divide"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickDivide"
             android:text="/"
@@ -94,7 +245,7 @@
 
         <Button
             android:id="@+id/multiply"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
 
             android:onClick="onClickMultiply"
@@ -104,7 +255,7 @@
 
         <Button
             android:id="@+id/seven"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickSeven"
             android:text="7"
@@ -114,7 +265,7 @@
             android:id="@+id/eight"
 
             android:layout_margin="1dp"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickEight"
             android:text="8"
             android:textSize="15dp" />
@@ -123,14 +274,14 @@
             android:id="@+id/nine"
 
             android:layout_margin="1dp"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickNine"
             android:text="9"
             android:textSize="15dp" />
 
         <Button
             android:id="@+id/minus"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickMinus"
             android:text="-"
@@ -138,7 +289,7 @@
 
         <Button
             android:id="@+id/four"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickFour"
             android:text="4"
@@ -146,7 +297,7 @@
 
         <Button
             android:id="@+id/five"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickFive"
             android:text="5"
@@ -154,7 +305,7 @@
 
         <Button
             android:id="@+id/six"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickSix"
             android:text="6"
@@ -163,7 +314,7 @@
 
         <Button
             android:id="@+id/plus"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickPlus"
             android:text="+"
@@ -172,7 +323,7 @@
 
         <Button
             android:id="@+id/one"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickOne"
             android:text="1"
@@ -180,7 +331,7 @@
 
         <Button
             android:id="@+id/two"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickTwo"
             android:text="2"
@@ -188,7 +339,7 @@
 
         <Button
             android:id="@+id/three"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickThree"
             android:text="3"
@@ -197,6 +348,7 @@
         <Button
             android:id="@+id/enter"
             android:layout_rowSpan="2"
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_gravity="fill"
             android:layout_margin="1dp"
             android:onClick="onClickEnter"
@@ -206,6 +358,7 @@
         <Button
             android:id="@+id/zero"
             android:layout_columnSpan="2"
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_gravity="fill"
             android:layout_margin="1dp"
             android:onClick="onClickZero"
@@ -215,11 +368,13 @@
 
         <Button
             android:id="@+id/point"
-
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickPoint"
             android:text="."
             android:textSize="15dp" />
     </GridLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

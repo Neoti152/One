@@ -46,20 +46,20 @@
 
             android:onClick="onClickUp"
 
-            android:text="Up"
+            android:text="\u21D1"
             android:textSize="30dp" />
 
     <Button
         android:id="@+id/delete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_gravity="right"
 
         android:onClick="onClickDelete"
 
-        android:text="Del"
-        android:textSize="30dp" />
+        android:text="\u232B"
+        android:textSize="20dp" />
     </LinearLayout>
     <GridLayout
         android:layout_width="wrap_content"
