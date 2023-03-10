@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private boolean isPointSet = false;
+
     private int countBracket = 0;
 
     @Override
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 editText.setText(sb);
                 editText.setSelection(++start);
-                isPointSet = true;
+
             }
         } else if ((sb.length() > 1) && (sb.charAt(start - 1) == '0') && (isZnak(sb.charAt(start - 2)))) {
             if (start == end) {
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             }
             editText.setText(sb);
             editText.setSelection(++start);
-            isPointSet = true;
+
         } else {
             if (start == end) {
                 sb.insert(start, '0');
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText(sb);
                 editText.setSelection(++start);
 
-                isPointSet = true;
+
             } else {
                 show();
             }
@@ -205,28 +205,32 @@ public class MainActivity extends AppCompatActivity {
     public void onClickDelete(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
-        if (sb.length() == 0) {
+        int start = editText.getSelectionStart();
+        if (sb.length() == 0 || start ==0) {
             return;
         }
 
-        int start = editText.getSelectionStart();
+
 
 
         int end = editText.getSelectionEnd();
-
+        char znak = sb.charAt(start-1);
+        if(znak == ')'){
+            countBracket++;
+        } else if(znak == '(' ){
+            countBracket--;
+        }
 
         if (start == end) {
 
             StringBuilder s = sb.deleteCharAt(--start);
             if (s.toString().contains(".")) {
-                isPointSet = false;
+
             }
         } else {
-            String s = sb.substring(start, end);
+
             sb.delete(start, end);
-            if (s.contains(".") & (!s.contains("+") || !s.contains("-") || !s.contains("*") || !s.contains("/"))) {
-                isPointSet = false;
-            }
+
         }
 
         editText.setText(sb);
@@ -255,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         editText.setText("");
         TextView textView = (TextView) findViewById(R.id.result);
         textView.setText("Result");
-        isPointSet = false;
+
     }
 
     public void addDigit(char c) {
@@ -312,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
             }
             editText.setText(sb);
             editText.setSelection(++start);
-            isPointSet = true;
+
         } else if ((sb.length() > 1) && (sb.charAt(start - 1) == '0') && (isZnak(sb.charAt(start - 2)))) {
             if (start == end) {
                 sb.insert(start, '.');
@@ -324,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
             }
             editText.setText(sb);
             editText.setSelection(++start);
-            isPointSet = true;
+
         } else {
             if (start == end) {
                 sb.insert(start, c);
@@ -379,7 +383,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        isPointSet = false;
+
     }
 
     public void onClickBrackets(View view) {
@@ -460,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
             editText.setText("");
 
             result.setText("Result");
-            isPointSet = false;
+
         }
 
     }
