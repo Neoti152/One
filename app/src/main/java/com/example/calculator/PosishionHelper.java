@@ -13,15 +13,18 @@ public class PosishionHelper implements Comparable {
         this.operation = operation;
         switch (operation) {
             case "+":
-                priorety = 2;
+                priorety = 3;
                 break;
             case "-":
-                priorety = 2;
+                priorety = 3;
                 break;
             case "*":
-                priorety = 1;
+                priorety = 2;
                 break;
             case "/":
+                priorety = 2;
+                break;
+            case "^":
                 priorety = 1;
                 break;
         }

@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
     private int countBracket = 0;
 
+    private boolean isRad = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,13 +95,13 @@ public class MainActivity extends AppCompatActivity {
 
         StringBuilder sb = new StringBuilder(editText.getText());
         int[] counts = numberLength(sb, start);
-        if(counts[0]>=15){
+        if (counts[0] >= 15) {
             Toast toast = Toast.makeText(this, "Не больше 15 цифр!", Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
 
-        if(counts[1]>=10){
+        if (counts[1] >= 10) {
             if (start > counts[2]) {
                 Toast toast = Toast.makeText(this, "Не больше 10 цифр после точки!", Toast.LENGTH_SHORT);
                 toast.show();
@@ -149,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 sb.insert(start, "0");
 
             }
+
             editText.setText(sb);
             editText.setSelection(++start);
         }
@@ -259,9 +262,214 @@ public class MainActivity extends AppCompatActivity {
         editText.setText("");
         TextView textView = (TextView) findViewById(R.id.result);
         textView.setText("Result");
+        countBracket=0;
 
     }
 
+
+    public void onClickRad(View view) {
+        TextView rad = (TextView) findViewById(R.id.rad);
+
+        if (isRad) {
+            rad.setText("");
+            isRad = false;
+            Calculate.isRad=false;
+        } else {
+            rad.setText("Rad");
+            isRad = true;
+            Calculate.isRad=true;
+        }
+    }
+
+    public void onClick2x(View view) {
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "2^(");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "2^(");
+        }
+        countBracket++;
+        editText.setText(sb);
+        editText.setSelection(start+3);
+    }
+
+    public void  onClickX2(View view) {
+        addOperation('^');
+        addDigit('2');
+
+    }
+
+
+    public void  onClickX3(View view) {
+       addOperation('^');
+        addDigit('3');
+    }
+    public void onClickXy(View view){
+        addOperation('^');
+    }
+
+    public void onClickSin(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "sin(");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "sin(");
+        }
+        countBracket++;
+        editText.setText(sb);
+        editText.setSelection(start+4);
+    }
+
+    public void onClickCos(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "cos(");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "cos(");
+        }
+        countBracket++;
+        editText.setText(sb);
+        editText.setSelection(start+4);
+    }
+
+    public void onClickTg(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "tg(");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "tg(");
+        }
+        countBracket++;
+        editText.setText(sb);
+        editText.setSelection(start+3);
+    }
+
+    public void onClickSqrt(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "\u221A(");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "\u221A(");
+        }
+        countBracket++;
+        editText.setText(sb);
+        editText.setSelection(start+2);
+    }
+
+    public void onClickLn(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "ln(");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "ln(");
+        }
+        countBracket++;
+        editText.setText(sb);
+        editText.setSelection(start+3);
+    }
+
+    public void onClickLg(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "lg(");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "lg(");
+        }
+        countBracket++;
+        editText.setText(sb);
+        editText.setSelection(start+3);
+    }
+
+    public void onClickLogxY(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "log:");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "log:");
+        }
+
+        editText.setText(sb);
+        editText.setSelection(start+3);
+    }
+    public void onClickXfac(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, "!");
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, "!");
+        }
+
+        editText.setText(sb);
+        editText.setSelection(++start);
+    }
+
+    public void onClickPi(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, Calculate.PI);
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, Calculate.PI);
+        }
+
+        editText.setText(sb);
+        editText.setSelection(start+12);
+    }
+
+    public void onClickE(View view){
+        EditText editText = (EditText) findViewById(R.id.edit);
+        StringBuilder sb = new StringBuilder(editText.getText());
+        int start = editText.getSelectionStart();
+        int end = editText.getSelectionEnd();
+        if (start == end) {
+            sb.insert(start, Calculate.E);
+        } else {
+            sb.delete(start, end);
+            sb.insert(start, Calculate.E);
+        }
+
+        editText.setText(sb);
+        editText.setSelection(start+12);
+    }
     public void addDigit(char c) {
         EditText editText = (EditText) findViewById(R.id.edit);
 
@@ -271,20 +479,19 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder(editText.getText());
         int[] counts = numberLength(sb, start);
 
-        if(counts[0]>=15){
+        if (counts[0] >= 15) {
             Toast toast = Toast.makeText(this, "Не больше 15 цифр!", Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
 
-        if(counts[1]>=10){
+        if (counts[1] >= 10) {
             if (start > counts[2]) {
                 Toast toast = Toast.makeText(this, "Не больше 10 цифр после точки!", Toast.LENGTH_SHORT);
                 toast.show();
                 return;
             }
         }
-
 
 
         if (sb.length() > 1 && start != 0 && sb.charAt(start - 1) == ')') {
@@ -502,7 +709,7 @@ public class MainActivity extends AppCompatActivity {
         int countn = 0;
         int end = 0;
         int countp = 0;
-        int pointPosishion=0;
+        int pointPosishion = 0;
         boolean b = false;
         for (int i = point; i < chars.length; i++) {
             if (isZnak(chars[i])) {
@@ -516,8 +723,8 @@ public class MainActivity extends AppCompatActivity {
             countn++;
             end = i;
         }
-        if (end == 0){
-            end = sb.length()-1;
+        if (end == 0) {
+            end = sb.length() - 1;
         }
 
         for (int i = point - 1; i >= 0; i--) {
@@ -549,7 +756,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isZnak(char c) {
-        if (c == '+' || c == '-' || c == '*' || c == '/') {
+        if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
             return true;
         } else {
             return false;
