@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         editText.requestFocus();
         if (savedInstanceState != null) {
             TextView result = (TextView) findViewById(R.id.result);
+            Button button = (Button) findViewById(R.id.buttonBinary);
+            TextView statusBinary = (TextView) findViewById(R.id.statusBinary);
+            TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
             editText.setText(savedInstanceState.getString("Formula"));
             result.setText(savedInstanceState.getString("Result"));
             int start = savedInstanceState.getInt("Start");
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 editText.setSelection(start, end);
             }
+            radix = savedInstanceState.getInt("Radix");
+            statusBinary.setText(savedInstanceState.getString("StatusBinary"));
+            resultBinary.setText(savedInstanceState.getString("ResultBinary"));
+            button.setText(savedInstanceState.getString("Button"));
         }
 
 
@@ -48,10 +55,17 @@ public class MainActivity extends AppCompatActivity {
         TextView result = (TextView) findViewById(R.id.result);
         int start = editText.getSelectionStart();
         int end = editText.getSelectionEnd();
+        Button button = (Button) findViewById(R.id.buttonBinary);
+        TextView statusBinary = (TextView) findViewById(R.id.statusBinary);
+        TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
         savedInstanceState.putString("Result", result.getText().toString());
         savedInstanceState.putString("Formula", editText.getText().toString());
         savedInstanceState.putInt("Start", start);
         savedInstanceState.putInt("End", end);
+        savedInstanceState.putInt("Radix", radix);
+        savedInstanceState.putString("StatusBinary", statusBinary.getText().toString());
+        savedInstanceState.putString("ResultBinary", resultBinary.getText().toString());
+        savedInstanceState.putString("Button", button.getText().toString());
     }
 
     public void onClickOne(View view) {
@@ -673,18 +687,37 @@ public class MainActivity extends AppCompatActivity {
             editText.setSelection(sb.length());
             if (radix != 0) {
                 TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
+                TextView statusBinary = (TextView) findViewById(R.id.statusBinary);
+
+                Button button = (Button) findViewById(R.id.buttonBinary);
                 try {
                     resultBinary.setText(Calculate.toRadix(res, radix));
                 } catch (NumberFormatException e) {
+                    radix = 0;
+                    statusBinary.setText("");
+                    resultBinary.setText("");
+                    button.setText("->01");
                     show("Только с целыми числами");
                 }
             }
         } catch (NumberFormatException e) {
             show();
             editText.setText("");
+            result.setText("");
+            if(radix != 0){
+                TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
+                resultBinary.setText("");
+            }
+
+        }catch (RuntimeException e){
+            show(e.getMessage());
+            editText.setText("");
 
             result.setText("");
-
+            if(radix != 0){
+                TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
+                resultBinary.setText("");
+            }
         }
 
     }
@@ -703,19 +736,19 @@ public class MainActivity extends AppCompatActivity {
         switch (radix) {
             case 0: {
                 radix = 2;
-                statusBinary.setText("10->2");
+                statusBinary.setText("10->2:");
                 button.setText("->07");
                 break;
             }
             case 2: {
                 radix = 8;
-                statusBinary.setText("10->8");
+                statusBinary.setText("10->8:");
                 button.setText("->0F");
                 break;
             }
             case 8: {
                 radix = 16;
-                statusBinary.setText("10->16");
+                statusBinary.setText("10->16:");
                 button.setText("Off");
                 break;
             }

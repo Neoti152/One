@@ -128,7 +128,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickBrackets"
             android:text="()"
-            android:textColor="@color/teal_200"
+
             android:textSize="30dp" />
 
         <Button
@@ -136,7 +136,7 @@
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickDivide"
-            android:textColor="@color/teal_200"
+
             android:text="/"
             android:textSize="30dp" />
 
@@ -146,7 +146,7 @@
             android:layout_margin="1dp"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:onClick="onClickMultiply"
-            android:textColor="@color/teal_200"
+
             android:text="*"
             android:textSize="30dp" />
 
@@ -182,7 +182,7 @@
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickMinus"
-            android:textColor="@color/teal_200"
+
             android:text="-"
             android:textSize="30dp" />
 
@@ -216,7 +216,7 @@
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickPlus"
-            android:textColor="@color/teal_200"
+
             android:text="+"
             android:textSize="30dp" />
 

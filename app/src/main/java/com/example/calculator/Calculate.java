@@ -18,7 +18,7 @@ public class Calculate {
 
 
 
-    public static String getResult(String s) throws NumberFormatException {
+    public static String getResult(String s) throws NumberFormatException, RuntimeException {
 
 
         while (s.contains("(")) {
@@ -36,14 +36,14 @@ public class Calculate {
     }
 
 
-    private static String calculation(String s) throws NumberFormatException {
+    private static String calculation(String s) throws NumberFormatException, RuntimeException {
         boolean boo = false;
         if (s.isEmpty()) {
             throw new NumberFormatException();
         }
 
         if (s.toCharArray()[0] == '-') {
-            s = s.substring(1, s.length());
+            s = s.substring(1);
             boo = true;
         }
 
@@ -120,7 +120,7 @@ public class Calculate {
     }
 
 
-    private static Number doOperation(String s, Number a, Number b) {
+    private static Number doOperation(String s, Number a, Number b) throws RuntimeException {
         double c = 0;
 
         switch (s) {
@@ -134,6 +134,10 @@ public class Calculate {
                 c = (double) a * (double) b;
                 break;
             case "/":
+                if ((double) b == 0){
+                    throw new RuntimeException("Деление на ноль");
+                }
+
                 c = (double) a / (double) b;
                 break;
             case "^":
@@ -222,7 +226,7 @@ public class Calculate {
     }
 
     public static String toRadix(String s, int radix) throws NumberFormatException{
-        int a = Integer.parseInt(s);
-        return Integer.toString(a, radix).toUpperCase();
+        long a = Long.parseLong(s);
+        return Long.toString(a, radix).toUpperCase();
     }
   }
