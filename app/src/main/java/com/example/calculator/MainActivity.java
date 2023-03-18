@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit);
         editText.setText("");
         TextView textView = (TextView) findViewById(R.id.result);
-        textView.setText("Result");
+        textView.setText("");
         countBracket=0;
 
     }
@@ -670,7 +670,7 @@ public class MainActivity extends AppCompatActivity {
             show();
             editText.setText("");
 
-            result.setText("Result");
+            result.setText("");
 
         }
 

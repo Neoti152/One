@@ -37,7 +37,7 @@
         android:gravity="center|right"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Result"
+        android:text=""
         android:textColor="@color/teal_200"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
@@ -53,9 +53,7 @@
         android:layout_gravity="right"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3">
 
         <TextView
             android:id="@+id/rad"
