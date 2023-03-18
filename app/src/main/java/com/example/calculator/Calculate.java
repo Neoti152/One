@@ -222,7 +222,7 @@ public class Calculate {
     }
 
     public static String toRadix(String s, int radix) throws NumberFormatException{
-        int a = Integer.parseInt(s);
-        return Integer.toString(a, radix).toUpperCase();
+        long a = Long.parseLong(s);
+        return Long.toString(a, radix).toUpperCase();
     }
   }
