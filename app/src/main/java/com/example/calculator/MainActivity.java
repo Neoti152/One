@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     private int countBracket = 0;
 
     private boolean isRad = false;
+
+    private int radix = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,18 +212,16 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
-        if (sb.length() == 0 || start ==0) {
+        if (sb.length() == 0 || start == 0) {
             return;
         }
 
 
-
-
         int end = editText.getSelectionEnd();
-        char znak = sb.charAt(start-1);
-        if(znak == ')'){
+        char znak = sb.charAt(start - 1);
+        if (znak == ')') {
             countBracket++;
-        } else if(znak == '(' ){
+        } else if (znak == '(') {
             countBracket--;
         }
 
@@ -262,7 +263,9 @@ public class MainActivity extends AppCompatActivity {
         editText.setText("");
         TextView textView = (TextView) findViewById(R.id.result);
         textView.setText("");
-        countBracket=0;
+        TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
+        resultBinary.setText("");
+        countBracket = 0;
 
     }
 
@@ -273,11 +276,11 @@ public class MainActivity extends AppCompatActivity {
         if (isRad) {
             rad.setText("");
             isRad = false;
-            Calculate.isRad=false;
+            Calculate.isRad = false;
         } else {
             rad.setText("Rad");
             isRad = true;
-            Calculate.isRad=true;
+            Calculate.isRad = true;
         }
     }
 
@@ -294,25 +297,26 @@ public class MainActivity extends AppCompatActivity {
         }
         countBracket++;
         editText.setText(sb);
-        editText.setSelection(start+3);
+        editText.setSelection(start + 3);
     }
 
-    public void  onClickX2(View view) {
+    public void onClickX2(View view) {
         addOperation('^');
         addDigit('2');
 
     }
 
 
-    public void  onClickX3(View view) {
-       addOperation('^');
+    public void onClickX3(View view) {
+        addOperation('^');
         addDigit('3');
     }
-    public void onClickXy(View view){
+
+    public void onClickXy(View view) {
         addOperation('^');
     }
 
-    public void onClickSin(View view){
+    public void onClickSin(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -325,10 +329,10 @@ public class MainActivity extends AppCompatActivity {
         }
         countBracket++;
         editText.setText(sb);
-        editText.setSelection(start+4);
+        editText.setSelection(start + 4);
     }
 
-    public void onClickCos(View view){
+    public void onClickCos(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -341,10 +345,10 @@ public class MainActivity extends AppCompatActivity {
         }
         countBracket++;
         editText.setText(sb);
-        editText.setSelection(start+4);
+        editText.setSelection(start + 4);
     }
 
-    public void onClickTg(View view){
+    public void onClickTg(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -357,10 +361,10 @@ public class MainActivity extends AppCompatActivity {
         }
         countBracket++;
         editText.setText(sb);
-        editText.setSelection(start+3);
+        editText.setSelection(start + 3);
     }
 
-    public void onClickSqrt(View view){
+    public void onClickSqrt(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -373,10 +377,10 @@ public class MainActivity extends AppCompatActivity {
         }
         countBracket++;
         editText.setText(sb);
-        editText.setSelection(start+2);
+        editText.setSelection(start + 2);
     }
 
-    public void onClickLn(View view){
+    public void onClickLn(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -389,10 +393,10 @@ public class MainActivity extends AppCompatActivity {
         }
         countBracket++;
         editText.setText(sb);
-        editText.setSelection(start+3);
+        editText.setSelection(start + 3);
     }
 
-    public void onClickLg(View view){
+    public void onClickLg(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -405,10 +409,10 @@ public class MainActivity extends AppCompatActivity {
         }
         countBracket++;
         editText.setText(sb);
-        editText.setSelection(start+3);
+        editText.setSelection(start + 3);
     }
 
-    public void onClickLogxY(View view){
+    public void onClickLogxY(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -421,9 +425,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         editText.setText(sb);
-        editText.setSelection(start+3);
+        editText.setSelection(start + 3);
     }
-    public void onClickXfac(View view){
+
+    public void onClickXfac(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -439,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
         editText.setSelection(++start);
     }
 
-    public void onClickPi(View view){
+    public void onClickPi(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -452,10 +457,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         editText.setText(sb);
-        editText.setSelection(start+12);
+        editText.setSelection(start + 12);
     }
 
-    public void onClickE(View view){
+    public void onClickE(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
         int start = editText.getSelectionStart();
@@ -468,8 +473,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         editText.setText(sb);
-        editText.setSelection(start+12);
+        editText.setSelection(start + 12);
     }
+
     public void addDigit(char c) {
         EditText editText = (EditText) findViewById(R.id.edit);
 
@@ -590,7 +596,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
     }
 
     public void onClickBrackets(View view) {
@@ -666,11 +671,79 @@ public class MainActivity extends AppCompatActivity {
             result.setText(res);
             editText.setText(sb);
             editText.setSelection(sb.length());
+            if (radix != 0) {
+                TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
+                try {
+                    resultBinary.setText(Calculate.toRadix(res, radix));
+                } catch (NumberFormatException e) {
+                    show("Только с целыми числами");
+                }
+            }
         } catch (NumberFormatException e) {
             show();
             editText.setText("");
 
             result.setText("");
+
+        }
+
+    }
+
+    public void onClickBinary(View view) {
+        TextView result = (TextView) findViewById(R.id.result);
+        String s = result.getText().toString();
+        Button button = (Button) findViewById(R.id.buttonBinary);
+        TextView statusBinary = (TextView) findViewById(R.id.statusBinary);
+        TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
+        String resultBinaryString = "";
+
+
+
+
+        switch (radix) {
+            case 0: {
+                radix = 2;
+                statusBinary.setText("10->2");
+                button.setText("->07");
+                break;
+            }
+            case 2: {
+                radix = 8;
+                statusBinary.setText("10->8");
+                button.setText("->0F");
+                break;
+            }
+            case 8: {
+                radix = 16;
+                statusBinary.setText("10->16");
+                button.setText("Off");
+                break;
+            }
+            case 16: {
+                radix = 0;
+                statusBinary.setText("");
+                resultBinary.setText("");
+                button.setText("->01");
+                return;
+            }
+
+        }
+
+        if (s.isEmpty()) {
+            return;
+        }
+
+        try {
+
+            resultBinaryString = Calculate.toRadix(s, radix);
+            resultBinary.setText(resultBinaryString);
+        } catch (NumberFormatException e) {
+
+            radix = 0;
+            statusBinary.setText("");
+            resultBinary.setText("");
+            button.setText("->01");
+            show("Только для целых чисел");
 
         }
 
@@ -766,6 +839,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void show() {
         Toast toast = Toast.makeText(this, "Неверный формат!", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    public void show(String s) {
+        Toast toast = Toast.makeText(this, s, Toast.LENGTH_SHORT);
         toast.show();
     }
 }

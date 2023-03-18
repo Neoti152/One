@@ -16,6 +16,8 @@ public class Calculate {
     public static final double PI = 3.1415926536;
     public static boolean isRad;
 
+
+
     public static String getResult(String s) throws NumberFormatException {
 
 
@@ -34,7 +36,7 @@ public class Calculate {
     }
 
 
-    public static String calculation(String s) throws NumberFormatException {
+    private static String calculation(String s) throws NumberFormatException {
         boolean boo = false;
         if (s.isEmpty()) {
             throw new NumberFormatException();
@@ -88,7 +90,7 @@ public class Calculate {
     }
 
 
-    public static List<Number> getNumbers(String[] strings) throws NumberFormatException {
+    private static List<Number> getNumbers(String[] strings) throws NumberFormatException {
         List<Number> list = new ArrayList<>();
         for (String s : strings) {
             list.add(doOperationMore(s));
@@ -96,7 +98,7 @@ public class Calculate {
         return list;
     }
 
-    public static List<PosishionHelper> getPosishonList(List<String> strings) {
+    private static List<PosishionHelper> getPosishonList(List<String> strings) {
         List<PosishionHelper> list = new ArrayList<>();
         for (int i = 0; i < strings.size(); i++) {
 
@@ -106,7 +108,7 @@ public class Calculate {
         return list;
     }
 
-    public static List<String> deleteEmpty(String[] strings) {
+    private static List<String> deleteEmpty(String[] strings) {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < strings.length; i++) {
             if (!strings[i].isEmpty()) {
@@ -118,7 +120,7 @@ public class Calculate {
     }
 
 
-    public static Number doOperation(String s, Number a, Number b) {
+    private static Number doOperation(String s, Number a, Number b) {
         double c = 0;
 
         switch (s) {
@@ -141,7 +143,7 @@ public class Calculate {
         return c;
     }
 
-    public static Double doOperationMore(String s) throws NumberFormatException {
+    private static Double doOperationMore(String s) throws NumberFormatException {
         Pattern pattern = Pattern.compile("sin|cos|tg|log|lg|ln|\u221A|!");
         Matcher matcher = pattern.matcher(s);
         if (matcher.find()) {
@@ -164,7 +166,7 @@ public class Calculate {
 
     }
 
-    public static Double doFunctions(String s, String d) {
+    private static Double doFunctions(String s, String d) {
         double c = 0;
 
         switch (s) {
@@ -211,11 +213,16 @@ public class Calculate {
         return c;
     }
 
-    public static double factorial(double d) {
+    private static double factorial(double d) {
         BigInteger n = new BigInteger("1");
         for (int i = 1; i <= d; i++) {
             n = n.multiply(new BigInteger(String.valueOf(i)));
         }
         return n.doubleValue();
     }
-}
+
+    public static String toRadix(String s, int radix) throws NumberFormatException{
+        int a = Integer.parseInt(s);
+        return Integer.toString(a, radix).toUpperCase();
+    }
+  }
