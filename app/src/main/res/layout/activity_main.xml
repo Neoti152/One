@@ -90,9 +90,7 @@
         android:text="\u25f7"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintStart_toStartOf="@+id/grid"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintStart_toStartOf="@+id/grid" />
 
     <Button
 
@@ -108,9 +106,7 @@
         android:text="∼"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintStart_toEndOf="@+id/button" />
 
     <Button
         android:id="@+id/buttonBinary"
@@ -140,9 +136,7 @@
         android:textColor="@color/teal_200"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintEnd_toStartOf="@+id/button2" />
 
 
     <Button
@@ -159,8 +153,7 @@
         android:textColor="@color/teal_200"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="@+id/grid"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintEnd_toEndOf="@+id/grid" />
 
     <GridLayout
         android:id="@+id/grid"
@@ -342,6 +335,8 @@
         android:layout_width="364dp"
         android:layout_height="1dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toTopOf="@+id/grid"
         tools:layout_editor_absoluteX="1dp" />

@@ -22,7 +22,7 @@
         android:longClickable="false"
         android:paddingLeft="15dp"
         android:paddingRight="20dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
             android:paddingRight="10dp"
             android:text=""
             android:textColor="@color/teal_200"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="italic" />
 
         <TextView
@@ -62,7 +62,7 @@
 
             android:text=""
             android:textColor="@color/teal_200"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="italic" />
 
         <TextView
@@ -75,7 +75,7 @@
             android:paddingRight="20dp"
             android:text=""
             android:textColor="@color/teal_200"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,7 @@
             android:onClick="onClickBinary"
 
             android:text="\u25f7"
-            android:textSize="10dp" />
+            android:textSize="15sp" />
 
         <Button
 
@@ -114,7 +114,7 @@
             android:gravity="center"
             android:onClick="onClickOrientation"
             android:text="∓"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <Button
@@ -125,7 +125,7 @@
             android:gravity="center"
             android:onClick="onClickBinary"
             android:text="->x₂"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -148,7 +148,7 @@
             android:padding="5dp"
             android:text=""
             android:textColor="@color/teal_200"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/up"
@@ -159,7 +159,7 @@
             android:onClick="onClickUp"
             android:text="\u21D1"
             android:textColor="@color/teal_200"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <Button
@@ -171,7 +171,7 @@
             android:onClick="onClickDelete"
             android:text="\u232B"
             android:textColor="@color/teal_200"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -193,7 +193,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickRad"
             android:text="Rad"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -201,7 +201,7 @@
             android:layout_margin="1dp"
             android:onClick="onClick2x"
             android:text="2\u02DF"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -217,7 +217,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickSin"
             android:text="sin"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -225,14 +225,14 @@
             android:layout_margin="1dp"
             android:onClick="onClickCos"
             android:text="cos"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_margin="1dp"
             android:onClick="onClickTg"
             android:text="tg"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -240,7 +240,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickLogxY"
             android:text="log\u2093y"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -248,7 +248,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickLn"
             android:text="ln"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -256,7 +256,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickLg"
             android:text="lg"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -264,7 +264,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickX2"
             android:text="x\u00B2"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -274,7 +274,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickX3"
             android:text="x\u00B3"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -282,7 +282,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickXy"
             android:text="x\u02B8"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -290,7 +290,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickXfac"
             android:text="x!"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -298,7 +298,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickPi"
             android:text="\u03C0"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
 
@@ -306,7 +306,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickE"
             android:text="e"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
     </GridLayout>
 
@@ -328,7 +328,7 @@
             android:onClick="onClickReset"
             android:text="C"
             android:textColor="@color/red"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/brackets"
@@ -336,7 +336,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickBrackets"
             android:text="()"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/divide"
@@ -344,7 +344,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickDivide"
             android:text="/"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/multiply"
@@ -353,7 +353,7 @@
 
             android:onClick="onClickMultiply"
             android:text="\u00d7"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
 
         <Button
@@ -362,7 +362,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickSeven"
             android:text="7"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/eight"
@@ -371,7 +371,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickEight"
             android:text="8"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/nine"
@@ -380,7 +380,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickNine"
             android:text="9"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/minus"
@@ -388,7 +388,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickMinus"
             android:text="-"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/four"
@@ -396,7 +396,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickFour"
             android:text="4"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/five"
@@ -404,7 +404,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickFive"
             android:text="5"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/six"
@@ -412,7 +412,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickSix"
             android:text="6"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
 
         <Button
@@ -421,7 +421,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickPlus"
             android:text="+"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
 
         <Button
@@ -430,7 +430,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickOne"
             android:text="1"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/two"
@@ -438,7 +438,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickTwo"
             android:text="2"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/three"
@@ -446,7 +446,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickThree"
             android:text="3"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/enter"
@@ -457,7 +457,7 @@
             android:onClick="onClickEnter"
             android:textColor="@color/teal_200"
             android:text="="
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/zero"
@@ -467,7 +467,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickZero"
             android:text="0"
-            android:textSize="10dp" />
+            android:textSize="10sp" />
 
 
         <Button
@@ -476,7 +476,7 @@
             android:layout_margin="1dp"
             android:onClick="onClickPoint"
             android:text="."
-            android:textSize="10dp" />
+            android:textSize="10sp" />
     </GridLayout>
 
     <View
@@ -485,8 +485,8 @@
         android:layout_height="1dp"
         android:layout_marginBottom="3dp"
         android:background="?android:attr/listDivider"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
