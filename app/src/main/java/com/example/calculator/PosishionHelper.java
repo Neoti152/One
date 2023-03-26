@@ -18,7 +18,7 @@ public class PosishionHelper implements Comparable {
             case "-":
                 priorety = 3;
                 break;
-            case "*":
+            case "\u00d7":
                 priorety = 2;
                 break;
             case "/":

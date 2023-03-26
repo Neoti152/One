@@ -47,7 +47,7 @@ public class Calculate {
             boo = true;
         }
 
-        Pattern pattern = Pattern.compile("[\\^*+/-]");
+        Pattern pattern = Pattern.compile("[\\^\u00d7+/-]");
         String[] strings = pattern.split(s);
         if (boo) {
             strings[0] = "-" + strings[0];
@@ -130,7 +130,7 @@ public class Calculate {
             case "-":
                 c = (double) a - (double) b;
                 break;
-            case "*":
+            case "\u00d7":
                 c = (double) a * (double) b;
                 break;
             case "/":

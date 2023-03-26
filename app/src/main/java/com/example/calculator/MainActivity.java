@@ -2,10 +2,14 @@ package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,8 +18,10 @@ public class MainActivity extends AppCompatActivity {
     private int countBracket = 0;
 
     private boolean isRad = false;
-
+private boolean off = false;
     private int radix = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putString("StatusBinary", statusBinary.getText().toString());
         savedInstanceState.putString("ResultBinary", resultBinary.getText().toString());
         savedInstanceState.putString("Button", button.getText().toString());
+
     }
 
     public void onClickOne(View view) {
@@ -264,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickMultiply(View view) {
-        addOperation('*');
+        addOperation('\u00d7');
     }
 
     public void onClickDivide(View view) {
@@ -655,6 +662,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void onClickEnter(View view) {
         EditText editText = (EditText) findViewById(R.id.edit);
         StringBuilder sb = new StringBuilder(editText.getText());
@@ -696,7 +704,7 @@ public class MainActivity extends AppCompatActivity {
                     radix = 0;
                     statusBinary.setText("");
                     resultBinary.setText("");
-                    button.setText("->01");
+                    button.setText("->x₂");
                     show("Только с целыми числами");
                 }
             }
@@ -722,6 +730,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onClickOrientation(View view){
+
+
+
+
+
+    }
+
     public void onClickBinary(View view) {
         TextView result = (TextView) findViewById(R.id.result);
         String s = result.getText().toString();
@@ -736,19 +752,19 @@ public class MainActivity extends AppCompatActivity {
         switch (radix) {
             case 0: {
                 radix = 2;
-                statusBinary.setText("10->2:");
-                button.setText("->07");
+                statusBinary.setText("x₁₀->x₂:");
+                button.setText("->x₈");
                 break;
             }
             case 2: {
                 radix = 8;
-                statusBinary.setText("10->8:");
-                button.setText("->0F");
+                statusBinary.setText("x₁₀->x₈:");
+                button.setText("->x₁₆");
                 break;
             }
             case 8: {
                 radix = 16;
-                statusBinary.setText("10->16:");
+                statusBinary.setText("x₁₀->x₁₆:");
                 button.setText("Off");
                 break;
             }
@@ -756,7 +772,7 @@ public class MainActivity extends AppCompatActivity {
                 radix = 0;
                 statusBinary.setText("");
                 resultBinary.setText("");
-                button.setText("->01");
+                button.setText("->x₂");
                 return;
             }
 
@@ -775,7 +791,7 @@ public class MainActivity extends AppCompatActivity {
             radix = 0;
             statusBinary.setText("");
             resultBinary.setText("");
-            button.setText("->01");
+            button.setText("->x₂");
             show("Только для целых чисел");
 
         }
@@ -862,7 +878,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isZnak(char c) {
-        if (c == '+' || c == '-' || c == '*' || c == '/' || c == '^') {
+        if (c == '+' || c == '-' || c == '\u00d7' || c == '/' || c == '^') {
             return true;
         } else {
             return false;

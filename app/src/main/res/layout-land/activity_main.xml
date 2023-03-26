@@ -82,6 +82,53 @@
             tools:layout_editor_absoluteY="67dp" />
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintStart_toStartOf="@+id/gridLayout2">
+
+
+        <Button
+
+            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+
+            android:onClick="onClickBinary"
+
+            android:text="\u25f7"
+            android:textSize="10dp" />
+
+        <Button
+
+            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onClickOrientation"
+            android:text="∓"
+            android:textSize="10dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttonBinary"
+            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="onClickBinary"
+            android:text="->x₂"
+            android:textSize="10dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
@@ -90,59 +137,50 @@
         android:layout_gravity="right"
 
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="@+id/gridLayout">
 
         <TextView
             android:id="@+id/rad"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:gravity="center"
             android:padding="5dp"
             android:text=""
             android:textColor="@color/teal_200"
             android:textSize="15dp" />
 
         <Button
-            android:id="@+id/buttonBinary"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            style="@style/Widget.Material3.Button.ElevatedButton"
-
-            android:onClick="onClickBinary"
-
-            android:text="->01"
-            android:textSize="10dp" />
-
-        <Button
             android:id="@+id/up"
-            style="@style/Widget.Material3.Button.ElevatedButton"
+            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:onClick="onClickUp"
             android:text="\u21D1"
+            android:textColor="@color/teal_200"
             android:textSize="10dp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/delete"
-            style="@style/Widget.Material3.Button.ElevatedButton"
+            style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:onClick="onClickDelete"
             android:text="\u232B"
+            android:textColor="@color/teal_200"
             android:textSize="10dp"
             android:textStyle="bold" />
     </LinearLayout>
 
 
     <GridLayout
+        android:id="@+id/gridLayout2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:columnCount="3"
         android:gravity="center"
@@ -314,7 +352,7 @@
             android:layout_margin="1dp"
 
             android:onClick="onClickMultiply"
-            android:text="*"
+            android:text="\u00d7"
             android:textSize="10dp" />
 
 
@@ -441,6 +479,17 @@
             android:textSize="10dp" />
     </GridLayout>
 
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="3dp"
+        android:background="?android:attr/listDivider"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
