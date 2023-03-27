@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +52,11 @@ private boolean off = false;
             button.setText(savedInstanceState.getString("Button"));
         }
 
+        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED){
+            Handler handler = new Handler();
+            handler.postDelayed(() -> setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED), 5000);
+
+        }
 
     }
 
@@ -731,9 +738,13 @@ private boolean off = false;
     }
 
     public void onClickOrientation(View view){
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
 
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
-
+        } else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
 
 
     }
