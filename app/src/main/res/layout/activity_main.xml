@@ -86,7 +86,7 @@
         android:layout_marginBottom="5dp"
 
         android:gravity="center"
-        android:onClick="onClickBinary"
+        android:onClick="onClickHistory"
         android:text="\u25f7"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
@@ -328,6 +328,8 @@
 
             android:text="."
             android:textSize="30sp" />
+
+
     </GridLayout>
 
     <View
@@ -341,6 +343,44 @@
         app:layout_constraintBottom_toTopOf="@+id/grid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:columnCount="4"
+        android:gravity="fill"
+        android:text="Hellow"
+        app:layout_constraintBottom_toBottomOf="@+id/grid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/grid"
+        app:layout_constraintTop_toTopOf="@+id/grid">
+
+        <LinearLayout
+            android:id="@+id/history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hellow"/>
+
+
+            <Button
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:onClick="onClickErase"
+                android:text="Очистить"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,910 +1,821 @@
-package com.example.calculator;
+package com.example.calculator
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
+import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-public class MainActivity extends AppCompatActivity {
-
-    private int countBracket = 0;
-
-    private boolean isRad = false;
-private boolean off = false;
-    private int radix = 0;
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        EditText editText = (EditText) findViewById(R.id.edit);
-        editText.setShowSoftInputOnFocus(false);
-        editText.requestFocus();
+class MainActivity : AppCompatActivity() {
+    private var countBracket = 0
+    private var isRad = false
+    private val off = false
+    private var radix = 0
+    private var isVisibleHistory = false
+    private val db: SQLiteDatabase? = null
+    private val cursor: Cursor? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val editText = findViewById<View>(R.id.edit) as EditText
+        editText.showSoftInputOnFocus = false
+        editText.requestFocus()
         if (savedInstanceState != null) {
-            TextView result = (TextView) findViewById(R.id.result);
-            Button button = (Button) findViewById(R.id.buttonBinary);
-            TextView statusBinary = (TextView) findViewById(R.id.statusBinary);
-            TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
-            editText.setText(savedInstanceState.getString("Formula"));
-            result.setText(savedInstanceState.getString("Result"));
-            int start = savedInstanceState.getInt("Start");
-            int end = savedInstanceState.getInt("End");
+            val result = findViewById<View>(R.id.result) as TextView
+            val button = findViewById<View>(R.id.buttonBinary) as Button
+            val statusBinary = findViewById<View>(R.id.statusBinary) as TextView
+            val resultBinary = findViewById<View>(R.id.resultBinary) as TextView
+            editText.setText(savedInstanceState.getString("Formula"))
+            result.text = savedInstanceState.getString("Result")
+            val start = savedInstanceState.getInt("Start")
+            val end = savedInstanceState.getInt("End")
             if (start == end) {
-                editText.setSelection(start);
+                editText.setSelection(start)
             } else {
-                editText.setSelection(start, end);
+                editText.setSelection(start, end)
             }
-            radix = savedInstanceState.getInt("Radix");
-            statusBinary.setText(savedInstanceState.getString("StatusBinary"));
-            resultBinary.setText(savedInstanceState.getString("ResultBinary"));
-            button.setText(savedInstanceState.getString("Button"));
+            radix = savedInstanceState.getInt("Radix")
+            statusBinary.text = savedInstanceState.getString("StatusBinary")
+            resultBinary.text = savedInstanceState.getString("ResultBinary")
+            button.text = savedInstanceState.getString("Button")
         }
-
-        if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED){
-            Handler handler = new Handler();
-            handler.postDelayed(() -> setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED), 5000);
-
+        if (requestedOrientation != ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
+            val handler = Handler()
+            handler.postDelayed({
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            }, 5000)
         }
-
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-
-        super.onSaveInstanceState(savedInstanceState);
-        EditText editText = (EditText) findViewById(R.id.edit);
-        TextView result = (TextView) findViewById(R.id.result);
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
-        Button button = (Button) findViewById(R.id.buttonBinary);
-        TextView statusBinary = (TextView) findViewById(R.id.statusBinary);
-        TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
-        savedInstanceState.putString("Result", result.getText().toString());
-        savedInstanceState.putString("Formula", editText.getText().toString());
-        savedInstanceState.putInt("Start", start);
-        savedInstanceState.putInt("End", end);
-        savedInstanceState.putInt("Radix", radix);
-        savedInstanceState.putString("StatusBinary", statusBinary.getText().toString());
-        savedInstanceState.putString("ResultBinary", resultBinary.getText().toString());
-        savedInstanceState.putString("Button", button.getText().toString());
-
+    public override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val result = findViewById<View>(R.id.result) as TextView
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
+        val button = findViewById<View>(R.id.buttonBinary) as Button
+        val statusBinary = findViewById<View>(R.id.statusBinary) as TextView
+        val resultBinary = findViewById<View>(R.id.resultBinary) as TextView
+        savedInstanceState.putString("Result", result.text.toString())
+        savedInstanceState.putString("Formula", editText.text.toString())
+        savedInstanceState.putInt("Start", start)
+        savedInstanceState.putInt("End", end)
+        savedInstanceState.putInt("Radix", radix)
+        savedInstanceState.putString("StatusBinary", statusBinary.text.toString())
+        savedInstanceState.putString("ResultBinary", resultBinary.text.toString())
+        savedInstanceState.putString("Button", button.text.toString())
     }
 
-    public void onClickOne(View view) {
-        addDigit('1');
+    fun onClickOne(view: View?) {
+        addDigit('1')
     }
 
-    public void onClickTwo(View view) {
-        addDigit('2');
+    fun onClickTwo(view: View?) {
+        addDigit('2')
     }
 
-    public void onClickThree(View view) {
-        addDigit('3');
+    fun onClickThree(view: View?) {
+        addDigit('3')
     }
 
-    public void onClickFour(View view) {
-        addDigit('4');
+    fun onClickFour(view: View?) {
+        addDigit('4')
     }
 
-    public void onClickFive(View view) {
-        addDigit('5');
+    fun onClickFive(view: View?) {
+        addDigit('5')
     }
 
-    public void onClickSix(View view) {
-        addDigit('6');
+    fun onClickSix(view: View?) {
+        addDigit('6')
     }
 
-    public void onClickSeven(View view) {
-        addDigit('7');
+    fun onClickSeven(view: View?) {
+        addDigit('7')
     }
 
-    public void onClickEight(View view) {
-        addDigit('8');
+    fun onClickEight(view: View?) {
+        addDigit('8')
     }
 
-    public void onClickNine(View view) {
-        addDigit('9');
+    fun onClickNine(view: View?) {
+        addDigit('9')
     }
 
-    public void onClickZero(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
-
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int[] counts = numberLength(sb, start);
+    fun onClickZero(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        var start = editText.selectionStart
+        val end = editText.selectionEnd
+        val sb = StringBuilder(editText.text)
+        val counts = numberLength(sb, start)
         if (counts[0] >= 15) {
-            Toast toast = Toast.makeText(this, "Не больше 15 цифр!", Toast.LENGTH_SHORT);
-            toast.show();
-            return;
+            val toast = Toast.makeText(this, "Не больше 15 цифр!", Toast.LENGTH_SHORT)
+            toast.show()
+            return
         }
-
         if (counts[1] >= 10) {
             if (start > counts[2]) {
-                Toast toast = Toast.makeText(this, "Не больше 10 цифр после точки!", Toast.LENGTH_SHORT);
-                toast.show();
-                return;
+                val toast =
+                    Toast.makeText(this, "Не больше 10 цифр после точки!", Toast.LENGTH_SHORT)
+                toast.show()
+                return
             }
         }
-
-        if (sb.length() == 1 && sb.charAt(start - 1) == '0') {
-            show();
-            return;
+        if (sb.length == 1 && sb[start - 1] == '0') {
+            show()
+            return
         } else if (start == 0) {
             if (isPointInNumber(sb, start)) {
-                show();
-                return;
+                show()
+                return
             } else {
                 if (start == end) {
-                    sb.insert(start, '0');
-                    sb.insert(++start, '.');
-
+                    sb.insert(start, '0')
+                    sb.insert(++start, '.')
                 } else {
-                    sb.delete(start, end);
-                    sb.insert(start, '0');
-                    sb.insert(++start, '.');
-
+                    sb.delete(start, end)
+                    sb.insert(start, '0')
+                    sb.insert(++start, '.')
                 }
-                editText.setText(sb);
-                editText.setSelection(++start);
-
+                editText.setText(sb)
+                editText.setSelection(++start)
             }
-        } else if ((sb.length() > 1) && (sb.charAt(start - 1) == '0') && (isZnak(sb.charAt(start - 2)))) {
+        } else if (sb.length > 1 && sb[start - 1] == '0' && isZnak(sb[start - 2])) {
             if (start == end) {
-                sb.insert(start, '.');
-
+                sb.insert(start, '.')
             } else {
-                sb.delete(start, end);
-                sb.insert(start, ".");
-
+                sb.delete(start, end)
+                sb.insert(start, ".")
             }
-            editText.setText(sb);
-            editText.setSelection(++start);
-
+            editText.setText(sb)
+            editText.setSelection(++start)
         } else {
             if (start == end) {
-                sb.insert(start, '0');
+                sb.insert(start, '0')
             } else {
-                sb.delete(start, end);
-                sb.insert(start, "0");
-
+                sb.delete(start, end)
+                sb.insert(start, "0")
             }
-
-            editText.setText(sb);
-            editText.setSelection(++start);
+            editText.setText(sb)
+            editText.setSelection(++start)
         }
     }
 
-
-    public void onClickPoint(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        if (sb.length() == 0 || start == 0) {
-            sb.insert(start, '0');
-            sb.insert(++start, '.');
-            editText.setText(sb);
-            editText.setSelection(2);
+    fun onClickPoint(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        var start = editText.selectionStart
+        if (sb.length == 0 || start == 0) {
+            sb.insert(start, '0')
+            sb.insert(++start, '.')
+            editText.setText(sb)
+            editText.setSelection(2)
         } else {
-
-
-            int end = editText.getSelectionEnd();
-            char znak = sb.charAt(start - 1);
+            val end = editText.selectionEnd
+            val znak = sb[start - 1]
             if (!isPointInNumber(sb, start)) {
                 if (isZnak(znak)) {
-                    sb.insert(start, '0');
-                    sb.insert(++start, '.');
+                    sb.insert(start, '0')
+                    sb.insert(++start, '.')
                 } else if (isPointInNumber(sb, start) && start == end) {
-                    sb.insert(start, '.');
+                    sb.insert(start, '.')
                 } else {
-                    sb.delete(start, end);
-                    sb.insert(start, '.');
+                    sb.delete(start, end)
+                    sb.insert(start, '.')
                 }
-                editText.setText(sb);
-                editText.setSelection(++start);
-
-
+                editText.setText(sb)
+                editText.setSelection(++start)
             } else {
-                show();
+                show()
             }
-
-        }
-
-    }
-
-    public void onClickUp(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-
-        TextView textView = (TextView) findViewById(R.id.result);
-        String s = textView.getText().toString();
-        if (!s.equals("Result")) {
-            editText.setText(s);
-            editText.setSelection(s.length());
         }
     }
 
-    public void onClickDelete(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        if (sb.length() == 0 || start == 0) {
-            return;
+    fun onClickUp(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val textView = findViewById<View>(R.id.result) as TextView
+        val s = textView.text.toString()
+        if (s != "Result") {
+            editText.setText(s)
+            editText.setSelection(s.length)
         }
+    }
 
-
-        int end = editText.getSelectionEnd();
-        char znak = sb.charAt(start - 1);
+    fun onClickDelete(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        var start = editText.selectionStart
+        if (sb.length == 0 || start == 0) {
+            return
+        }
+        val end = editText.selectionEnd
+        val znak = sb[start - 1]
         if (znak == ')') {
-            countBracket++;
+            countBracket++
         } else if (znak == '(') {
-            countBracket--;
+            countBracket--
         }
-
         if (start == end) {
-
-            StringBuilder s = sb.deleteCharAt(--start);
+            val s = sb.deleteCharAt(--start)
             if (s.toString().contains(".")) {
-
             }
         } else {
-
-            sb.delete(start, end);
-
+            sb.delete(start, end)
         }
-
-        editText.setText(sb);
-        editText.setSelection(start);
+        editText.setText(sb)
+        editText.setSelection(start)
     }
 
-    public void onClickPlus(View view) {
-        addOperation('+');
+    fun onClickPlus(view: View?) {
+        addOperation('+')
     }
 
-    public void onClickMinus(View view) {
-        addOperation('-');
+    fun onClickMinus(view: View?) {
+        addOperation('-')
     }
 
-    public void onClickMultiply(View view) {
-        addOperation('\u00d7');
+    fun onClickMultiply(view: View?) {
+        addOperation('\u00d7')
     }
 
-    public void onClickDivide(View view) {
-        addOperation('/');
+    fun onClickDivide(view: View?) {
+        addOperation('/')
     }
 
-
-    public void onClickReset(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        editText.setText("");
-        TextView textView = (TextView) findViewById(R.id.result);
-        textView.setText("");
-        TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
-        resultBinary.setText("");
-        countBracket = 0;
-
+    fun onClickReset(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        editText.setText("")
+        val textView = findViewById<View>(R.id.result) as TextView
+        textView.text = ""
+        val resultBinary = findViewById<View>(R.id.resultBinary) as TextView
+        resultBinary.text = ""
+        countBracket = 0
     }
 
-
-    public void onClickRad(View view) {
-        TextView rad = (TextView) findViewById(R.id.rad);
-
+    fun onClickRad(view: View?) {
+        val rad = findViewById<View>(R.id.rad) as TextView
         if (isRad) {
-            rad.setText("");
-            isRad = false;
-            Calculate.isRad = false;
+            rad.text = ""
+            isRad = false
+            Calculate.isRad = false
         } else {
-            rad.setText("Rad");
-            isRad = true;
-            Calculate.isRad = true;
+            rad.text = "Rad"
+            isRad = true
+            Calculate.isRad = true
         }
     }
 
-    public void onClick2x(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClick2x(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "2^(");
+            sb.insert(start, "2^(")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "2^(");
+            sb.delete(start, end)
+            sb.insert(start, "2^(")
         }
-        countBracket++;
-        editText.setText(sb);
-        editText.setSelection(start + 3);
+        countBracket++
+        editText.setText(sb)
+        editText.setSelection(start + 3)
     }
 
-    public void onClickX2(View view) {
-        addOperation('^');
-        addDigit('2');
-
+    fun onClickX2(view: View?) {
+        addOperation('^')
+        addDigit('2')
     }
 
-
-    public void onClickX3(View view) {
-        addOperation('^');
-        addDigit('3');
+    fun onClickX3(view: View?) {
+        addOperation('^')
+        addDigit('3')
     }
 
-    public void onClickXy(View view) {
-        addOperation('^');
+    fun onClickXy(view: View?) {
+        addOperation('^')
     }
 
-    public void onClickSin(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickSin(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "sin(");
+            sb.insert(start, "sin(")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "sin(");
+            sb.delete(start, end)
+            sb.insert(start, "sin(")
         }
-        countBracket++;
-        editText.setText(sb);
-        editText.setSelection(start + 4);
+        countBracket++
+        editText.setText(sb)
+        editText.setSelection(start + 4)
     }
 
-    public void onClickCos(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickCos(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "cos(");
+            sb.insert(start, "cos(")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "cos(");
+            sb.delete(start, end)
+            sb.insert(start, "cos(")
         }
-        countBracket++;
-        editText.setText(sb);
-        editText.setSelection(start + 4);
+        countBracket++
+        editText.setText(sb)
+        editText.setSelection(start + 4)
     }
 
-    public void onClickTg(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickTg(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "tg(");
+            sb.insert(start, "tg(")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "tg(");
+            sb.delete(start, end)
+            sb.insert(start, "tg(")
         }
-        countBracket++;
-        editText.setText(sb);
-        editText.setSelection(start + 3);
+        countBracket++
+        editText.setText(sb)
+        editText.setSelection(start + 3)
     }
 
-    public void onClickSqrt(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickSqrt(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "\u221A(");
+            sb.insert(start, "\u221A(")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "\u221A(");
+            sb.delete(start, end)
+            sb.insert(start, "\u221A(")
         }
-        countBracket++;
-        editText.setText(sb);
-        editText.setSelection(start + 2);
+        countBracket++
+        editText.setText(sb)
+        editText.setSelection(start + 2)
     }
 
-    public void onClickLn(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickLn(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "ln(");
+            sb.insert(start, "ln(")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "ln(");
+            sb.delete(start, end)
+            sb.insert(start, "ln(")
         }
-        countBracket++;
-        editText.setText(sb);
-        editText.setSelection(start + 3);
+        countBracket++
+        editText.setText(sb)
+        editText.setSelection(start + 3)
     }
 
-    public void onClickLg(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickLg(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "lg(");
+            sb.insert(start, "lg(")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "lg(");
+            sb.delete(start, end)
+            sb.insert(start, "lg(")
         }
-        countBracket++;
-        editText.setText(sb);
-        editText.setSelection(start + 3);
+        countBracket++
+        editText.setText(sb)
+        editText.setSelection(start + 3)
     }
 
-    public void onClickLogxY(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickLogxY(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "log:");
+            sb.insert(start, "log:")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "log:");
+            sb.delete(start, end)
+            sb.insert(start, "log:")
         }
-
-        editText.setText(sb);
-        editText.setSelection(start + 3);
+        editText.setText(sb)
+        editText.setSelection(start + 3)
     }
 
-    public void onClickXfac(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickXfac(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        var start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, "!");
+            sb.insert(start, "!")
         } else {
-            sb.delete(start, end);
-            sb.insert(start, "!");
+            sb.delete(start, end)
+            sb.insert(start, "!")
         }
-
-        editText.setText(sb);
-        editText.setSelection(++start);
+        editText.setText(sb)
+        editText.setSelection(++start)
     }
 
-    public void onClickPi(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickPi(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, Calculate.PI);
+            sb.insert(start, Calculate.PI)
         } else {
-            sb.delete(start, end);
-            sb.insert(start, Calculate.PI);
+            sb.delete(start, end)
+            sb.insert(start, Calculate.PI)
         }
-
-        editText.setText(sb);
-        editText.setSelection(start + 12);
+        editText.setText(sb)
+        editText.setSelection(start + 12)
     }
 
-    public void onClickE(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
+    fun onClickE(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        val start = editText.selectionStart
+        val end = editText.selectionEnd
         if (start == end) {
-            sb.insert(start, Calculate.E);
+            sb.insert(start, Calculate.E)
         } else {
-            sb.delete(start, end);
-            sb.insert(start, Calculate.E);
+            sb.delete(start, end)
+            sb.insert(start, Calculate.E)
         }
-
-        editText.setText(sb);
-        editText.setSelection(start + 12);
+        editText.setText(sb)
+        editText.setSelection(start + 12)
     }
 
-    public void addDigit(char c) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
-
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int[] counts = numberLength(sb, start);
-
+    fun addDigit(c: Char) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        var start = editText.selectionStart
+        val end = editText.selectionEnd
+        val sb = StringBuilder(editText.text)
+        val counts = numberLength(sb, start)
         if (counts[0] >= 15) {
-            Toast toast = Toast.makeText(this, "Не больше 15 цифр!", Toast.LENGTH_SHORT);
-            toast.show();
-            return;
+            val toast = Toast.makeText(this, "Не больше 15 цифр!", Toast.LENGTH_SHORT)
+            toast.show()
+            return
         }
-
         if (counts[1] >= 10) {
             if (start > counts[2]) {
-                Toast toast = Toast.makeText(this, "Не больше 10 цифр после точки!", Toast.LENGTH_SHORT);
-                toast.show();
-                return;
+                val toast =
+                    Toast.makeText(this, "Не больше 10 цифр после точки!", Toast.LENGTH_SHORT)
+                toast.show()
+                return
             }
         }
-
-
-        if (sb.length() > 1 && start != 0 && sb.charAt(start - 1) == ')') {
-            show();
-            return;
+        if (sb.length > 1 && start != 0 && sb[start - 1] == ')') {
+            show()
+            return
         }
-
         if (start == 0) {
             if (start == end) {
-                sb.insert(start, c);
+                sb.insert(start, c)
             } else {
-                sb.delete(start, end);
-                sb.insert(start, c);
-
+                sb.delete(start, end)
+                sb.insert(start, c)
             }
-            editText.setText(sb);
-            editText.setSelection(++start);
-            return;
+            editText.setText(sb)
+            editText.setSelection(++start)
+            return
         }
-
-        if (sb.length() == 1 && sb.charAt(start - 1) == '0') {
+        if (sb.length == 1 && sb[start - 1] == '0') {
             if (start == end) {
-                sb.insert(start, '.');
-                sb.insert(++start, c);
+                sb.insert(start, '.')
+                sb.insert(++start, c)
             } else {
-                sb.delete(start, end);
-                sb.insert(start, ".");
-                sb.insert(++start, c);
+                sb.delete(start, end)
+                sb.insert(start, ".")
+                sb.insert(++start, c)
             }
-            editText.setText(sb);
-            editText.setSelection(++start);
-
-        } else if ((sb.length() > 1) && (sb.charAt(start - 1) == '0') && (isZnak(sb.charAt(start - 2)))) {
+            editText.setText(sb)
+            editText.setSelection(++start)
+        } else if (sb.length > 1 && sb[start - 1] == '0' && isZnak(sb[start - 2])) {
             if (start == end) {
-                sb.insert(start, '.');
-                sb.insert(++start, c);
+                sb.insert(start, '.')
+                sb.insert(++start, c)
             } else {
-                sb.delete(start, end);
-                sb.insert(start, ".");
-                sb.insert(++start, c);
+                sb.delete(start, end)
+                sb.insert(start, ".")
+                sb.insert(++start, c)
             }
-            editText.setText(sb);
-            editText.setSelection(++start);
-
+            editText.setText(sb)
+            editText.setSelection(++start)
         } else {
             if (start == end) {
-                sb.insert(start, c);
+                sb.insert(start, c)
             } else {
-                sb.delete(start, end);
-                sb.insert(start, c);
-
+                sb.delete(start, end)
+                sb.insert(start, c)
             }
-            editText.setText(sb);
-            editText.setSelection(++start);
+            editText.setText(sb)
+            editText.setSelection(++start)
         }
     }
 
-    public void addOperation(char c) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
-
-        if ((start == 0) && (c == '-')) {
-            sb.insert(start, c);
-            editText.setText(sb);
-            editText.setSelection(++start);
+    fun addOperation(c: Char) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        var start = editText.selectionStart
+        val end = editText.selectionEnd
+        if (start == 0 && c == '-') {
+            sb.insert(start, c)
+            editText.setText(sb)
+            editText.setSelection(++start)
         } else if (start == 0) {
-            show();
-     /*  } else if (sb.length() > 2 && sb.charAt(start - 2) == '(') {
+            show()
+            /*  } else if (sb.length() > 2 && sb.charAt(start - 2) == '(') {
             show();
             return;*/
         } else {
-
-            char znak = sb.charAt(start - 1);
+            val znak = sb[start - 1]
             if (isZnak(znak) || znak == '.') {
                 if (start == 1) {
-                    show();
-                    return;
+                    show()
+                    return
                 } else {
-                    sb.deleteCharAt(--start);
-                    sb.insert(start, c);
+                    sb.deleteCharAt(--start)
+                    sb.insert(start, c)
                 }
             } else if (znak == '(' && c != '-') {
-                show();
-                return;
+                show()
+                return
             } else if (start == end) {
-                sb.insert(start, c);
+                sb.insert(start, c)
             } else {
-                sb.delete(start, end);
-                sb.insert(start, c);
+                sb.delete(start, end)
+                sb.insert(start, c)
             }
-            editText.setText(sb);
-            editText.setSelection(++start);
-
+            editText.setText(sb)
+            editText.setSelection(++start)
         }
-
-
     }
 
-    public void onClickBrackets(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-        int start = editText.getSelectionStart();
-        if (sb.length() == 0 || start == 0) {
-            sb.insert(0, '(');
-            editText.setText(sb);
-            editText.setSelection(1);
-            countBracket++;
+    fun onClickBrackets(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        var start = editText.selectionStart
+        if (sb.length == 0 || start == 0) {
+            sb.insert(0, '(')
+            editText.setText(sb)
+            editText.setSelection(1)
+            countBracket++
         } else {
-
-            int end = editText.getSelectionEnd();
-
-
-            char znak = sb.charAt(start - 1);
-
+            val end = editText.selectionEnd
+            val znak = sb[start - 1]
             if (znak == '(' || isZnak(znak)) {
                 if (start == end) {
-                    sb.insert(start, '(');
+                    sb.insert(start, '(')
                 } else {
-                    sb.delete(start, end);
-                    sb.insert(start, '(');
+                    sb.delete(start, end)
+                    sb.insert(start, '(')
                 }
-                editText.setText(sb);
-                editText.setSelection(++start);
-                countBracket++;
+                editText.setText(sb)
+                editText.setSelection(++start)
+                countBracket++
             } else if (countBracket != 0 && !isZnak(znak)) {
                 if (start == end) {
-                    sb.insert(start, ')');
+                    sb.insert(start, ')')
                 } else {
-                    sb.delete(start, end);
-                    sb.insert(start, ')');
+                    sb.delete(start, end)
+                    sb.insert(start, ')')
                 }
-                editText.setText(sb);
-                editText.setSelection(++start);
-                countBracket--;
+                editText.setText(sb)
+                editText.setSelection(++start)
+                countBracket--
             } else {
-                show();
+                show()
             }
         }
     }
 
-
-
-    public void onClickEnter(View view) {
-        EditText editText = (EditText) findViewById(R.id.edit);
-        StringBuilder sb = new StringBuilder(editText.getText());
-
-        if (sb.length() == 0) {
-            return;
+    fun onClickEnter(view: View?) {
+        val editText = findViewById<View>(R.id.edit) as EditText
+        val sb = StringBuilder(editText.text)
+        if (sb.length == 0) {
+            return
         }
-
-        if (sb.length() == 1 && sb.charAt(0) == '-') {
-            show();
-            return;
+        if (sb.length == 1 && sb[0] == '-') {
+            show()
+            return
         }
-
-        int end = sb.length() - 1;
-        char znak = sb.charAt(end);
+        val end = sb.length - 1
+        val znak = sb[end]
         if (isZnak(znak) || znak == '.') {
-            sb.deleteCharAt(end);
+            sb.deleteCharAt(end)
         }
         if (countBracket != 0) {
             while (countBracket != 0) {
-                sb.append(')');
-                countBracket--;
+                sb.append(')')
+                countBracket--
             }
         }
-        TextView result = (TextView) findViewById(R.id.result);
+        val result = findViewById<View>(R.id.result) as TextView
         try {
-            String res = Calculate.getResult(sb.toString());
-            result.setText(res);
-            editText.setText(sb);
-            editText.setSelection(sb.length());
+            val res = Calculate.getResult(sb.toString())
+            result.text = res
+            editText.setText(sb)
+            editText.setSelection(sb.length)
             if (radix != 0) {
-                TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
-                TextView statusBinary = (TextView) findViewById(R.id.statusBinary);
-
-                Button button = (Button) findViewById(R.id.buttonBinary);
+                val resultBinary = findViewById<View>(R.id.resultBinary) as TextView
+                val statusBinary = findViewById<View>(R.id.statusBinary) as TextView
+                val button = findViewById<View>(R.id.buttonBinary) as Button
                 try {
-                    resultBinary.setText(Calculate.toRadix(res, radix));
-                } catch (NumberFormatException e) {
-                    radix = 0;
-                    statusBinary.setText("");
-                    resultBinary.setText("");
-                    button.setText("->x₂");
-                    show("Только с целыми числами");
+                    resultBinary.text = Calculate.toRadix(res, radix)
+                } catch (e: NumberFormatException) {
+                    radix = 0
+                    statusBinary.text = ""
+                    resultBinary.text = ""
+                    button.text = "->x₂"
+                    show("Только с целыми числами")
                 }
             }
-        } catch (NumberFormatException e) {
-            show();
-            editText.setText("");
-            result.setText("");
-            if(radix != 0){
-                TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
-                resultBinary.setText("");
+        } catch (e: NumberFormatException) {
+            show()
+            editText.setText("")
+            result.text = ""
+            if (radix != 0) {
+                val resultBinary = findViewById<View>(R.id.resultBinary) as TextView
+                resultBinary.text = ""
             }
-
-        }catch (RuntimeException e){
-            show(e.getMessage());
-            editText.setText("");
-
-            result.setText("");
-            if(radix != 0){
-                TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
-                resultBinary.setText("");
+        } catch (e: RuntimeException) {
+            show(e.message)
+            editText.setText("")
+            result.text = ""
+            if (radix != 0) {
+                val resultBinary = findViewById<View>(R.id.resultBinary) as TextView
+                resultBinary.text = ""
             }
         }
-
     }
 
-    public void onClickOrientation(View view){
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-
-        } else{
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-        }
-
-
+    fun onClickOrientation(view: View?) {
+        requestedOrientation =
+            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+            } else {
+                ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+            }
     }
 
-    public void onClickBinary(View view) {
-        TextView result = (TextView) findViewById(R.id.result);
-        String s = result.getText().toString();
-        Button button = (Button) findViewById(R.id.buttonBinary);
-        TextView statusBinary = (TextView) findViewById(R.id.statusBinary);
-        TextView resultBinary = (TextView) findViewById(R.id.resultBinary);
-        String resultBinaryString = "";
-
-
-
-
-        switch (radix) {
-            case 0: {
-                radix = 2;
-                statusBinary.setText("x₁₀->x₂:");
-                button.setText("->x₈");
-                break;
-            }
-            case 2: {
-                radix = 8;
-                statusBinary.setText("x₁₀->x₈:");
-                button.setText("->x₁₆");
-                break;
-            }
-            case 8: {
-                radix = 16;
-                statusBinary.setText("x₁₀->x₁₆:");
-                button.setText("Off");
-                break;
-            }
-            case 16: {
-                radix = 0;
-                statusBinary.setText("");
-                resultBinary.setText("");
-                button.setText("->x₂");
-                return;
-            }
-
+    fun onClickHistory(view: View?) {
+        val scrollView = findViewById<View>(R.id.scroll) as ScrollView
+        val gridLayout = findViewById<View>(R.id.grid) as GridLayout
+        if (isVisibleHistory) {
+            gridLayout.visibility = View.VISIBLE
+            scrollView.visibility = View.GONE
+            isVisibleHistory = false
+        } else {
+            gridLayout.visibility = View.INVISIBLE
+            scrollView.visibility = View.VISIBLE
+            isVisibleHistory = true
         }
+    }
 
+    fun onClickBinary(view: View?) {
+        val result = findViewById<View>(R.id.result) as TextView
+        val s = result.text.toString()
+        val button = findViewById<View>(R.id.buttonBinary) as Button
+        val statusBinary = findViewById<View>(R.id.statusBinary) as TextView
+        val resultBinary = findViewById<View>(R.id.resultBinary) as TextView
+        var resultBinaryString: String? = ""
+        when (radix) {
+            0 -> {
+                radix = 2
+                statusBinary.text = "x₁₀->x₂:"
+                button.text = "->x₈"
+            }
+            2 -> {
+                radix = 8
+                statusBinary.text = "x₁₀->x₈:"
+                button.text = "->x₁₆"
+            }
+            8 -> {
+                radix = 16
+                statusBinary.text = "x₁₀->x₁₆:"
+                button.text = "Off"
+            }
+            16 -> {
+                radix = 0
+                statusBinary.text = ""
+                resultBinary.text = ""
+                button.text = "->x₂"
+                return
+            }
+        }
         if (s.isEmpty()) {
-            return;
+            return
         }
-
         try {
-
-            resultBinaryString = Calculate.toRadix(s, radix);
-            resultBinary.setText(resultBinaryString);
-        } catch (NumberFormatException e) {
-
-            radix = 0;
-            statusBinary.setText("");
-            resultBinary.setText("");
-            button.setText("->x₂");
-            show("Только для целых чисел");
-
+            resultBinaryString = Calculate.toRadix(s, radix)
+            resultBinary.text = resultBinaryString
+        } catch (e: NumberFormatException) {
+            radix = 0
+            statusBinary.text = ""
+            resultBinary.text = ""
+            button.text = "->x₂"
+            show("Только для целых чисел")
         }
-
     }
 
-    public boolean isPointInNumber(StringBuilder sb, int point) {
-        char[] chars = sb.toString().toCharArray();
-        boolean b = false;
-        for (int i = point; i < chars.length; i++) {
+    fun isPointInNumber(sb: StringBuilder, point: Int): Boolean {
+        val chars = sb.toString().toCharArray()
+        var b = false
+        for (i in point until chars.size) {
             if (isZnak(chars[i])) {
-                break;
+                break
             }
             if (chars[i] == '.') {
-                b = true;
-                break;
+                b = true
+                break
             }
         }
-        for (int i = point - 1; i >= 0; i--) {
+        for (i in point - 1 downTo 0) {
             if (isZnak(chars[i])) {
-                break;
+                break
             }
             if (chars[i] == '.') {
-                b = true;
-                break;
+                b = true
+                break
             }
         }
-        return b;
-
-
+        return b
     }
 
-
-    public int[] numberLength(StringBuilder sb, int point) {
-        char[] chars = sb.toString().toCharArray();
-        int[] counts = {0, 0, 0};
-        int countn = 0;
-        int end = 0;
-        int countp = 0;
-        int pointPosishion = 0;
-        boolean b = false;
-        for (int i = point; i < chars.length; i++) {
+    fun onClickErase(view: View?) {}
+    fun numberLength(sb: StringBuilder, point: Int): IntArray {
+        val chars = sb.toString().toCharArray()
+        val counts = intArrayOf(0, 0, 0)
+        var countn = 0
+        var end = 0
+        var countp = 0
+        var pointPosishion = 0
+        var b = false
+        for (i in point until chars.size) {
             if (isZnak(chars[i])) {
-                break;
+                break
             }
             if (chars[i] == '.') {
-                pointPosishion = i;
-                b = true;
-                countn--;
+                pointPosishion = i
+                b = true
+                countn--
             }
-            countn++;
-            end = i;
+            countn++
+            end = i
         }
         if (end == 0) {
-            end = sb.length() - 1;
+            end = sb.length - 1
         }
-
-        for (int i = point - 1; i >= 0; i--) {
+        for (i in point - 1 downTo 0) {
             if (isZnak(chars[i])) {
-                break;
+                break
             }
             if (chars[i] == '.') {
-                pointPosishion = i;
-                b = true;
-                countn--;
-
+                pointPosishion = i
+                b = true
+                countn--
             }
-            countn++;
+            countn++
         }
         if (b) {
-            for (int i = end; i >= 0; i--) {
+            for (i in end downTo 0) {
                 if (chars[i] == '.') {
-                    break;
-
+                    break
                 }
-                countp++;
+                countp++
             }
-
         }
-        counts[0] = countn;
-        counts[1] = countp;
-        counts[2] = pointPosishion;
-        return counts;
+        counts[0] = countn
+        counts[1] = countp
+        counts[2] = pointPosishion
+        return counts
     }
 
-    public boolean isZnak(char c) {
-        if (c == '+' || c == '-' || c == '\u00d7' || c == '/' || c == '^') {
-            return true;
+    fun isZnak(c: Char): Boolean {
+        return if (c == '+' || c == '-' || c == '\u00d7' || c == '/' || c == '^') {
+            true
         } else {
-            return false;
+            false
         }
     }
 
-
-    public void show() {
-        Toast toast = Toast.makeText(this, "Неверный формат!", Toast.LENGTH_SHORT);
-        toast.show();
+    fun show() {
+        val toast = Toast.makeText(this, "Неверный формат!", Toast.LENGTH_SHORT)
+        toast.show()
     }
 
-    public void show(String s) {
-        Toast toast = Toast.makeText(this, s, Toast.LENGTH_SHORT);
-        toast.show();
+    fun show(s: String?) {
+        val toast = Toast.makeText(this, s, Toast.LENGTH_SHORT)
+        toast.show()
     }
 }
-
