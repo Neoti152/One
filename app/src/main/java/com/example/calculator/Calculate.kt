@@ -1,232 +1,186 @@
-package com.example.calculator;
+package com.example.calculator
 
-import java.math.BigInteger;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.math.BigInteger
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
+import java.util.regex.Pattern
 
-public class Calculate {
-    public static final double E = 2.7182818285;
-    public static final double PI = 3.1415926536;
-    public static boolean isRad;
-
-
-
-    public static String getResult(String s) throws NumberFormatException, RuntimeException {
-
-
+object Calculate {
+    const val E = 2.7182818285
+    const val PI = 3.1415926536
+    var isRad = false
+    @Throws(NumberFormatException::class, RuntimeException::class)
+    fun getResult(s: String): String {
+        var s = s
         while (s.contains("(")) {
-            int end = s.indexOf(")");
-            int start = s.lastIndexOf("(", end);
-            String s1 = getResult(s.substring(++start, end));
-
-            String s2 = s.substring(--start, ++end);
-            System.out.println(s2);
-            s = s.replace(s2, s1);
+            var end = s.indexOf(")")
+            var start = s.lastIndexOf("(", end)
+            val s1 = getResult(s.substring(++start, end))
+            val s2 = s.substring(--start, ++end)
+            println(s2)
+            s = s.replace(s2, s1)
         }
-
-
-        return calculation(s);
+        return calculation(s)
     }
 
-
-    private static String calculation(String s) throws NumberFormatException, RuntimeException {
-        boolean boo = false;
+    @Throws(NumberFormatException::class, RuntimeException::class)
+    private fun calculation(s: String): String {
+        var s = s
+        var boo = false
         if (s.isEmpty()) {
-            throw new NumberFormatException();
+            throw NumberFormatException()
         }
-
         if (s.toCharArray()[0] == '-') {
-            s = s.substring(1);
-            boo = true;
+            s = s.substring(1)
+            boo = true
         }
-
-        Pattern pattern = Pattern.compile("[\\^\u00d7+/-]");
-        String[] strings = pattern.split(s);
+        val pattern = Pattern.compile("[\\^\u00d7+/-]")
+        val strings = pattern.split(s)
         if (boo) {
-            strings[0] = "-" + strings[0];
+            strings[0] = "-" + strings[0]
         }
-
-        List<Number> numbers = getNumbers(strings);
-
-
-        Pattern pattern2 = Pattern.compile("\\d\\.\\d|\\d|sin|cos|tg|log|lg|ln|\u221A|!|E|:");
-        String[] znaki = pattern2.split(s);
-        List<String> listznaki = deleteEmpty(znaki);
-
-
-        List<PosishionHelper> operations = getPosishonList(listznaki);
-
-
-        for (int i = 0; i < operations.size(); i++) {
-            if (numbers.size() > 1) {
-                int pos = operations.get(i).posishion;
-                int pos2 = pos + 1;
-                Number a = numbers.get(pos);
-                Number b = numbers.get(pos2);
-                Number c = doOperation(operations.get(i).operation, a, b);
-                numbers.set(pos, c);
-                numbers.remove(pos2);
-                for (int j = i; j < operations.size(); j++) {
-                    if (operations.get(j).posishion >= pos) {
-                        operations.get(j).posishion--;
+        val numbers = getNumbers(strings)
+        val pattern2 = Pattern.compile("\\d\\.\\d|\\d|sin|cos|tg|log|lg|ln|\u221A|!|E|:")
+        val znaki = pattern2.split(s)
+        val listznaki = deleteEmpty(znaki)
+        val operations = getPosishonList(listznaki)
+        for (i in operations.indices) {
+            if (numbers.size > 1) {
+                val pos = operations[i].posishion
+                val pos2 = pos + 1
+                val a = numbers[pos]
+                val b = numbers[pos2]
+                val c = doOperation(operations[i].operation, a, b)
+                numbers[pos] = c
+                numbers.removeAt(pos2)
+                for (j in i until operations.size) {
+                    if (operations[j].posishion >= pos) {
+                        operations[j].posishion--
                     }
                 }
             }
-
         }
-
-        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
-        symbols.setDecimalSeparator('.');
-        double d = (double) numbers.get(0);
-        DecimalFormat format = new DecimalFormat("#.##########", symbols);
-        return format.format(d);
+        val symbols = DecimalFormatSymbols.getInstance()
+        symbols.decimalSeparator = '.'
+        val d = numbers[0] as Double
+        val format = DecimalFormat("#.##########", symbols)
+        return format.format(d)
     }
 
-
-    private static List<Number> getNumbers(String[] strings) throws NumberFormatException {
-        List<Number> list = new ArrayList<>();
-        for (String s : strings) {
-            list.add(doOperationMore(s));
+    @Throws(NumberFormatException::class)
+    private fun getNumbers(strings: Array<String>): MutableList<Number> {
+        val list: MutableList<Number> = ArrayList()
+        for (s in strings) {
+            list.add(doOperationMore(s))
         }
-        return list;
+        return list
     }
 
-    private static List<PosishionHelper> getPosishonList(List<String> strings) {
-        List<PosishionHelper> list = new ArrayList<>();
-        for (int i = 0; i < strings.size(); i++) {
-
-            list.add(new PosishionHelper(strings.get(i), i));
+    private fun getPosishonList(strings: List<String>): List<PosishionHelper> {
+        val list: MutableList<PosishionHelper> = ArrayList()
+        for (i in strings.indices) {
+            list.add(PosishionHelper(strings[i], i))
         }
-        Collections.sort(list);
-        return list;
+        Collections.sort(list)
+        return list
     }
 
-    private static List<String> deleteEmpty(String[] strings) {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < strings.length; i++) {
+    private fun deleteEmpty(strings: Array<String>): List<String> {
+        val list: MutableList<String> = ArrayList()
+        for (i in strings.indices) {
             if (!strings[i].isEmpty()) {
-                list.add(strings[i]);
+                list.add(strings[i])
             }
         }
-
-        return list;
+        return list
     }
 
-
-    private static Number doOperation(String s, Number a, Number b) throws RuntimeException {
-        double c = 0;
-
-        switch (s) {
-            case "+":
-                c = (double) a + (double) b;
-                break;
-            case "-":
-                c = (double) a - (double) b;
-                break;
-            case "\u00d7":
-                c = (double) a * (double) b;
-                break;
-            case "/":
-                if ((double) b == 0){
-                    throw new RuntimeException("Деление на ноль");
+    @Throws(RuntimeException::class)
+    private fun doOperation(s: String?, a: Number, b: Number): Number {
+        var c = 0.0
+        when (s) {
+            "+" -> c = a as Double + b as Double
+            "-" -> c = a as Double - b as Double
+            "\u00d7" -> c = a as Double * b as Double
+            "/" -> {
+                if (b as Double == 0.0) {
+                    throw RuntimeException("Деление на ноль")
                 }
-
-                c = (double) a / (double) b;
-                break;
-            case "^":
-                c = Math.pow((double) a, (double) b);
-                break;
+                c = a as Double / b
+            }
+            "^" -> c = Math.pow(a as Double, b as Double)
         }
-        return c;
+        return c
     }
 
-    private static Double doOperationMore(String s) throws NumberFormatException {
-        Pattern pattern = Pattern.compile("sin|cos|tg|log|lg|ln|\u221A|!");
-        Matcher matcher = pattern.matcher(s);
-        if (matcher.find()) {
-            int end = matcher.end();
-            String str = s.substring(end);
-
+    @Throws(NumberFormatException::class)
+    private fun doOperationMore(s: String): Double {
+        var s = s
+        val pattern = Pattern.compile("sin|cos|tg|log|lg|ln|\u221A|!")
+        val matcher = pattern.matcher(s)
+        return if (matcher.find()) {
+            val end = matcher.end()
+            val str = s.substring(end)
             if (str.isEmpty()) {
-                String a = s.substring(0, end - 1);
-                return factorial(Double.parseDouble(a));
+                val a = s.substring(0, end - 1)
+                factorial(a.toDouble())
             } else {
-
-                s = s.substring(0, end);
-                double d = doFunctions(s, str);
-                return d;
+                s = s.substring(0, end)
+                doFunctions(s, str)
             }
-
         } else {
-            return Double.parseDouble(s);
+            s.toDouble()
         }
-
     }
 
-    private static Double doFunctions(String s, String d) {
-        double c = 0;
-
-        switch (s) {
-            case "sin":
-                if (isRad) {
-                    c = Math.sin(Double.parseDouble(d));
-                }else{
-                    c = Math.sin(Math.toRadians(Double.parseDouble(d)));
-                }
-                break;
-            case "cos":
-                if (isRad) {
-                    c = Math.cos(Double.parseDouble(d));
-                }else{
-                    c = Math.cos(Math.toRadians(Double.parseDouble(d)));
-                }
-                break;
-            case "tg":
-                if (isRad) {
-                    c = Math.tan(Double.parseDouble(d));
-                }else{
-                    c = Math.tan(Math.toRadians(Double.parseDouble(d)));
-                }
-                break;
-            case "lg":
-                c = Math.log10(Double.parseDouble(d));
-                break;
-            case "ln":
-                c = Math.log(Double.parseDouble(d));
-                break;
-            case "log":
-                int points = d.indexOf(':');
+    private fun doFunctions(s: String, d: String): Double {
+        var c = 0.0
+        when (s) {
+            "sin" -> c = if (isRad) {
+                Math.sin(d.toDouble())
+            } else {
+                Math.sin(Math.toRadians(d.toDouble()))
+            }
+            "cos" -> c = if (isRad) {
+                Math.cos(d.toDouble())
+            } else {
+                Math.cos(Math.toRadians(d.toDouble()))
+            }
+            "tg" -> c = if (isRad) {
+                Math.tan(d.toDouble())
+            } else {
+                Math.tan(Math.toRadians(d.toDouble()))
+            }
+            "lg" -> c = Math.log10(d.toDouble())
+            "ln" -> c = Math.log(d.toDouble())
+            "log" -> {
+                val points = d.indexOf(':')
                 if (points == -1) {
-                    throw new NumberFormatException();
+                    throw NumberFormatException()
                 }
-                double number = Double.parseDouble(d.substring(0, points));
-                double base = Double.parseDouble(d.substring(points + 1));
-                c = Math.log10(number) / Math.log10(base);
-                break;
-            case "\u221A":
-                c = Math.sqrt(Double.parseDouble(d));
-                break;
+                val number = d.substring(0, points).toDouble()
+                val base = d.substring(points + 1).toDouble()
+                c = Math.log10(number) / Math.log10(base)
+            }
+            "\u221A" -> c = Math.sqrt(d.toDouble())
         }
-        return c;
+        return c
     }
 
-    private static double factorial(double d) {
-        BigInteger n = new BigInteger("1");
-        for (int i = 1; i <= d; i++) {
-            n = n.multiply(new BigInteger(String.valueOf(i)));
+    private fun factorial(d: Double): Double {
+        var n = BigInteger("1")
+        var i = 1
+        while (i <= d) {
+            n = n.multiply(BigInteger(i.toString()))
+            i++
         }
-        return n.doubleValue();
+        return n.toDouble()
     }
 
-    public static String toRadix(String s, int radix) throws NumberFormatException{
-        long a = Long.parseLong(s);
-        return Long.toString(a, radix).toUpperCase();
+    @Throws(NumberFormatException::class)
+    fun toRadix(s: String?, radix: Int): String {
+        val a = s!!.toLong()
+        return java.lang.Long.toString(a, radix).uppercase(Locale.getDefault())
     }
-  }
+}

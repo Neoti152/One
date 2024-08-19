@@ -36,7 +36,6 @@
 
         android:orientation="horizontal"
 
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit">
 
